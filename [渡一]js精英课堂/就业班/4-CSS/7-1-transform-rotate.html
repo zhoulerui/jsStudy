@@ -15,7 +15,7 @@
       transform-style: preserve-3d;
       /* 调整视角 */
       perspective-origin: 50% 50%;
-      
+
     }
 
     .demo {
@@ -26,6 +26,7 @@
       display: inline-block;
       margin: 50px;
       font-family: -apple-system;
+      background: #dfe;
     }
 
     .demo1 {
@@ -91,6 +92,16 @@
         transform: rotateX(-360deg) rotateY(-360deg) rotateZ(-360deg);
       }
     }
+    
+    .demo5-1 {
+      line-height: 1.5;
+      transform: rotateX(45deg) rotateY(90deg);
+    }
+
+    .demo5-2 {
+      line-height: 1.5;
+      transform: rotateY(90deg) rotateX(45deg);
+    }
   </style>
 </head>
 
@@ -106,6 +117,13 @@
   </div>
   <div class="demo demo4">
     rotateAll
+  </div>
+  <h3>同角度下旋转顺序不同，状态不同</h3>
+  <div class="demo demo5-1">
+    同角度下旋转顺序不同，状态不同
+  </div>
+  <div class="demo demo5-2">
+    同角度下旋转顺序不同，状态不同
   </div>
 </body>
 
