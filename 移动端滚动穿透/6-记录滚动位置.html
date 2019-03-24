@@ -107,7 +107,7 @@
     var scrollT = null;
     var LastScrollT = 0;
     window.onscroll = function (e) {
-      scrollT = getScrollOffset().y;//滚动条距离
+      scrollT = getScrollOffset().y; //滚动条距离
     }
 
     btn.onclick = function () {
@@ -115,7 +115,7 @@
       // 在这里获取滚动的距离，赋值给body，好让他不要跳上去。
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
-      document.body.style.top = -scrollT + 'px';//改变css中top的值，配合fixed使用
+      document.body.style.top = -scrollT + 'px'; //改变css中top的值，配合fixed使用
       // 然后找个变量存一下刚才的scrolltop，要不然一会重新赋值，真正的scrollT会变0
       LastScrollT = scrollT;
     }
@@ -129,12 +129,13 @@
       // 关闭close弹层的时候，改变js中的scrollTop值为上次保存的LastScrollT的值。并根据兼容性赋给对应的值。
       if (window.pageXOffset) {
         window.pageYOffset = LastScrollT;
-      }else{
+      } else {
         document.body.scrollTop = LastScrollT;
         document.documentElement.scrollTop = LastScrollT;
       }
     }
-    console.log(`
+    console.log(
+      `
       这种原理简单，理解方便。并且各方面都能实现，比如说body可以继续滚动，弹层出来后他的scrollTop不会跳到顶部。
 
       弹层中不管短还是长，需不需要滚动，都不care，自由活动。
@@ -147,7 +148,8 @@
 
       ** 测试所有手机的上拉或下拉问题，第四种没有出现这种问题，第五种也没有，都是因为用了touchmove的preventDefault的原因
       ** 第二种方法和这个有一致的情况，如果不小心碰到了layer黑色蒙层的上拉下滑，如果出现了body的底部背景，弹层的滚动效果也就下岗了。
-    `)
+    `
+    )
   </script>
 </body>
 

@@ -104,10 +104,10 @@
       layer.style.display = 'block';
       //为了我的css能统一使用，这里偷个懒，加个行间样式，
       // 把之前做demo用的overflow滚动给禁掉，然后改了点别的样式
-      layerBox.style.overflow = 'hidden'; 
-      layerBox.style.paddingTop = 0; 
-      layerList.style.paddingTop = 0; 
-      layerList.style.paddingBottom = 0; 
+      layerBox.style.overflow = 'hidden';
+      layerBox.style.paddingTop = 0;
+      layerList.style.paddingTop = 0;
+      layerList.style.paddingBottom = 0;
     }
     var closeBtn = document.getElementById('close');
     closeBtn.onclick = function () {
@@ -126,7 +126,7 @@
     layerBox.addEventListener('touchstart', function (e) {
       //这里简单的把整个layerBox的默认事件给禁止了，所以close的click事件就不起作用了。
       // 可以把结构再改改把close挪出来。或者js把close绕开：
-      if(e.target != closeBtn){
+      if (e.target != closeBtn) {
         e.preventDefault();
       }
       //clientY-客户区坐标Y 、pageY-页面坐标Y
@@ -139,11 +139,11 @@
         sH = layerBox.scrollHeight, //可滚动区域的高度
         lyBoxH = layerBox.clientHeight; //可视区域的高度
       if (NewTargetY - targetY > 0 && '鼠标方向向下滑-上翻效果') {
-        transH += NewTargetY - lastY;// 先把这次鼠标滑动的距离计算出来，叠加给transH
-        transH = transH >= 0 ? 0 : transH;//原本transH是负值，如果一直向上翻，就需要一直+正值，一旦正负相加抵消到>=0,说明翻到顶了，就直接赋值为顶，不再上翻。
+        transH += NewTargetY - lastY; // 先把这次鼠标滑动的距离计算出来，叠加给transH
+        transH = transH >= 0 ? 0 : transH; //原本transH是负值，如果一直向上翻，就需要一直+正值，一旦正负相加抵消到>=0,说明翻到顶了，就直接赋值为顶，不再上翻。
       } else if (NewTargetY - targetY < 0 && '鼠标方向向上滑动-下拉效果') {
-        transH -= lastY - NewTargetY;// 先把这次鼠标滑动的距离计算出来，叠减给transH
-        transH = Math.abs(transH) > sH - lyBoxH ? -(sH - lyBoxH) : transH;//如果transH的绝对值大于可滚动的距离了，说明翻到底，则把可滚动区域翻到底的值赋给他。否则就一直下滚鼠标移动的距离
+        transH -= lastY - NewTargetY; // 先把这次鼠标滑动的距离计算出来，叠减给transH
+        transH = Math.abs(transH) > sH - lyBoxH ? -(sH - lyBoxH) : transH; //如果transH的绝对值大于可滚动的距离了，说明翻到底，则把可滚动区域翻到底的值赋给他。否则就一直下滚鼠标移动的距离
       }
       layerList.style.transform = `translateY(${ transH }px)`;
       lastY = NewTargetY;
@@ -158,7 +158,8 @@
       不好的点就是没有原生滚动条那种效果，一点也不灵动，只能鼠标移动多少、可滚动区域挪动多少。
 
       但是这个做法我应用在项目中过，经得起测试的考验都。
-    `)
+    `
+    )
   </script>
 </body>
 
