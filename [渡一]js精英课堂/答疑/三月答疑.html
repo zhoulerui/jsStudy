@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>三月答疑问题</title>
+  <style>
+    #p1 {
+      text-indent: 25px;
+    }
+
+    #p2 {
+      text-indent: 45px;
+    }
+
+    #p3 {
+      text-indent: 65px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="demo1">点击div没有反应,想法应该是事件只触发一次就失效</div>
+  <h4>首行缩进</h4>
+  <p>不缩进</p>
+  <p id="p1">缩进25px</p>
+  <p id="p2">缩进45px</p>
+  <p id="p3">缩进65px</p>
+  <script>
+    // 
+    demo1.addEventListener('click', test, false);
+
+    function test() {
+      alert('test')
+      demo.removeEventListener('click', test, false);
+    }
+    // 这样写，点击div没有反应,想法应该是事件只触发一次就失效，问题是这样直接就没有触发
+    // demo.removeEventListener('click', test, false);
+    // 原因：你把事件移除了啊,可以把移除的代码写到test函数里、执行test的时候，再移除
+    var obj = {
+      toString: function(){
+        return '成哥最帅';
+      }
+    };
+    console.log(obj)
+    console.log(obj.toString());
+
+    var a = {n:1}
+    console.log('a1',a,'b1',b);
+    var b = a;
+    console.log(b);
+    a.x = a = {m:2}
+    console.log('a2',a,'b2',b);
+  </script>
+</body>
+
+</html>

@@ -34,3 +34,7 @@
 <h2 id="num05">body滚动 + 弹层内部滚动[js-代码模拟上下滑动效果]</h2>
 
 <h2 id="num06">body滚动 + 弹层内部滚动[css+js-记录滚动位置]</h2>
+
+
+
+[原文链接](https://github.com/xingorg1/jsStudy/tree/master/移动端滚动穿透)
