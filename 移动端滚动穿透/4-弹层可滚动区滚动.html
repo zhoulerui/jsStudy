@@ -101,12 +101,10 @@
       });
       layerBox.addEventListener('touchmove', function (e) {
         // 检测可滚动区域的滚动事件，如果滑到了顶部或底部，阻止默认事件
-        var NewTargetY = Math.floor(e.targetTouches[0].clientY),//本次移动时鼠标的位置，用于计算
-          sTop = layerBox.scrollTop,//当前滚动的距离
-          sH = layerBox.scrollHeight,//可滚动区域的高度
-          lyBoxH = layerBox.clientHeight;//可视区域的高度
-        // console.log(sTop, sH, lyBoxH);
-        // console.log('hah', NewTargetY, NewTargetY - targetY);
+        var NewTargetY = Math.floor(e.targetTouches[0].clientY), //本次移动时鼠标的位置，用于计算
+          sTop = layerBox.scrollTop, //当前滚动的距离
+          sH = layerBox.scrollHeight, //可滚动区域的高度
+          lyBoxH = layerBox.clientHeight; //可视区域的高度
         if (sTop <= 0 && NewTargetY - targetY > 0 && '鼠标方向向下-到顶') {
           // console.log('条件1成立：下拉页面到顶');
           e.preventDefault();
@@ -120,7 +118,7 @@
     var closeBtn = document.getElementById('close');
     closeBtn.onclick = function () {
       layer.style.display = 'none';
-       // 弹窗关闭后，可解除所有禁止 - 懒人就不写了
+      // 弹窗关闭后，可解除所有禁止 - 懒人就不写了
     }
     console.log(
       `

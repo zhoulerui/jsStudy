@@ -43,22 +43,22 @@
         <div class="close" id="close">X</div>
         <div class="layer-cont">百度图片使用世界前沿的人工智能技术,为用户甄选海量的高清美图,用更流畅、更快捷、更精准的搜索体验,带你去发现多彩的世界。</div>
         <ul class="layer-list" style="display: none">
-            <li>第一行</li>
-            <li>第二行</li>
-            <li>第三行</li>
-            <li>第四行</li>
-            <li>第五行</li>
-            <li>第六行</li>
-  
-            <li>66666</li>
-  
-            <li>第一行</li>
-            <li>第二行</li>
-            <li>第三行</li>
-            <li>第四行</li>
-            <li>第五行</li>
-            <li>第六行</li>
-          </ul>
+          <li>第一行</li>
+          <li>第二行</li>
+          <li>第三行</li>
+          <li>第四行</li>
+          <li>第五行</li>
+          <li>第六行</li>
+
+          <li>66666</li>
+
+          <li>第一行</li>
+          <li>第二行</li>
+          <li>第三行</li>
+          <li>第四行</li>
+          <li>第五行</li>
+          <li>第六行</li>
+        </ul>
         <div class="btns">
           <div class="btn-confirm">确认</div>
           <div class="btn-cancel">取消</div>
@@ -69,7 +69,7 @@
       为了称高度 - 百度图片使用世界前沿的人工智能技术,为用户甄选海量的高清美图,用更流畅、更快捷、更精准的搜索体验,带你去发现多彩的世界。
       <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg" alt="">
       百度图片使用世界前沿的人工智能技术,为用户甄选海量的高清美图,用更流畅、更快捷、更精准的搜索体验,带你去发现多彩的世界。
-      
+
       <img src="http://pic3.nipic.com/20090527/1242397_102231006_2.jpg" alt="">
       百度图片使用世界前沿的人工智能技术,为用户甄选海量的高清美图,用更流畅、更快捷、更精准的搜索体验,带你去发现多彩的世界。
       <img src="http://pic22.nipic.com/20120714/9622064_105642209176_2.jpg" alt="">
@@ -87,16 +87,17 @@
   <script>
     btn.onclick = function () {
       layer.style.display = 'block';
-      layer.addEventListener('touchmove',function(e){
+      layer.addEventListener('touchmove', function (e) {
         e.preventDefault();
-      },false);
+      }, false);
     }
     var closeBtn = document.getElementById('close');
     closeBtn.onclick = function () {
       layer.style.display = 'none';
-       // 弹窗关闭后，可解除所有禁止 - 懒人就不写了
+      // 弹窗关闭后，可解除所有禁止 - 懒人就不写了
     }
-    console.log(`
+    console.log(
+      `
       在弹层不需要超出滚动的情况下，才可以使用这个。也就是禁止整个layer弹层的touchmove的默认事件。就可以阻止滚动穿透。
 
       同样，如果弹层中需要滚动效果，则不能解决了。那么这时，就引来我们的主题难点，可以有以下几种思路解决：
@@ -113,7 +114,9 @@
 
       n.插件解决-fastclick的用法。
       n+1.除了fastclick，搜集其他可以解决的插件。
-    `)
+    `
+    )
   </script>
 </body>
+
 </html>
