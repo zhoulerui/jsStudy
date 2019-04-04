@@ -105,13 +105,20 @@
 
     .hover-test {
       color: rebeccapurple;
+      vertical-align: top;
     }
-
+    li:nth-of-type(3n){color: red}
     .hover-test:hover {}
+    .anniu{
+      background-color: red;
+      background-image: linear-gradient(to right,red,yellow);
+    }
   </style>
 </head>
 
 <body>
+  <a href="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg" download="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg">点击我下载图片</a>
+  <a href="http://www.jq22.com/jquery/jquery-1.7.1.js" download="http://www.jq22.com/jquery/jquery-1.7.1.js">点击我下载jquery-1.7.1.js</a>
   <div data-id="2">div有data-id的</div>
   <div id="23">div</div>
   <a>234</a>
@@ -227,8 +234,25 @@
   <div class="for-height">撑开高度用的</div>
   <div class="for-height">撑开高度用的</div>
   <div class="top" id="goTop">返回顶部</div>
-
+  <button class="anniu">按钮</button>
   <script>
+    var $div1 = document.createElement('div');
+    var $div2 = document.createElement('div');
+    $div1.innerHTML = '<span>哈哈哈</span>'
+    $div2.innerHTML = '<span>哈哈哈22222</span>'
+    $div2.appendChild($div1);
+    document.body.appendChild($div2);
+    var obj = {
+      a: function(){
+        console.log(this.b,this);
+        this.b();
+      },
+      b: function(){
+        console.log(this);
+      },
+      c: this.a
+    }
+    console.log(obj.c);
     var myB = 1;
     console.log('myB数字', myB++);
     console.log('myB', myB);

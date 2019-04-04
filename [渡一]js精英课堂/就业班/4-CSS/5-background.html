@@ -7,7 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>background</title>
   <style>
+    html,
     body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+
+      padding-top: 300px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
 
@@ -71,9 +79,9 @@
       /* 从右到左 */
       background-image: linear-gradient(270deg, #ff0, #0ff);
       /* 花式用法 */
-      background-image: linear-gradient(to top right, #ff0,#0ff);
+      background-image: linear-gradient(to top right, #ff0, #0ff);
       width: 350px;
-      background-image: linear-gradient(to right, #ff0, 20%,#0ff);
+      background-image: linear-gradient(to right, #ff0, 20%, #0ff);
       background-image: linear-gradient(to right, #ff0, #0ff);
       background-image: linear-gradient(to right, #ff0 40px, #0ff 90%);
     }
@@ -81,28 +89,48 @@
     .radial {
       background-image: radial-gradient(#ff0, #0ff);
       background-image: radial-gradient(#ff0 20%, #0ff);
-      background-image: radial-gradient(at top,#ff0 20%, #0ff 80%);
-      background-image: radial-gradient(circle at top right,#ff0 20%, #0ff 80%);
-      background-image: radial-gradient(ellipse,#ff0 10%, #0ff 20%);
-      background-image: radial-gradient(ellipse closest-corner at 20% 10%,#ff0 10%, #0ff 20%);
-      background-image: radial-gradient(ellipse at 20% 10%,#ff0 10%, #0ff 20%);
+      background-image: radial-gradient(at top, #ff0 20%, #0ff 80%);
+      background-image: radial-gradient(circle at top right, #ff0 20%, #0ff 80%);
+      background-image: radial-gradient(ellipse, #ff0 10%, #0ff 20%);
+      background-image: radial-gradient(ellipse closest-corner at 20% 10%, #ff0 10%, #0ff 20%);
+      background-image: radial-gradient(ellipse at 20% 10%, #ff0 10%, #0ff 20%);
+    }
+
+    .attachment {
+      width: 100%;
+      height: 500px;
+      margin-bottom: 120px;
+      background: url(bdImg.jpg) no-repeat;
+      background-size: 100% auto;
+      background-attachment: fixed;
+    }
+
+    .attachment h1 {
+      color: #0ff;
+      text-align: center;
+      padding: 40px;
     }
   </style>
 </head>
 
 <body>
+
   <div style="overflow: hidden;">
     <div class="bg1">多图效果</div>
     <div class="bg2">郭菊锋加油！</div>
   </div>
+  <div class="attachment">
+    <h1>实现屏幕上滑，里边有一张背景图一直在</h1>
+  </div>
   <div style="overflow: hidden;">
-      <div class="gradi linear"></div>
-      <div class="gradi radial"></div>
+    <div class="gradi linear"></div>
+    <div class="gradi radial"></div>
   </div>
   <h1>contain</h1>
   <div class="size">郭菊锋加油</div>
   <h1>cover</h1>
   <div class="size cover">郭菊锋加油</div>
+
   <script>
     function myFunction() {
       console.log('12')

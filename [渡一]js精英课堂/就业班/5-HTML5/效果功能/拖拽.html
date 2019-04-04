@@ -65,7 +65,7 @@
       list1Li[i].setAttribute('draggable', true)
       list1Li[i].ondragstart = function (e) {
         console.log(e, 'ondragstart');
-        console.log(this)
+        e.dataTransfer.effectAllowed = 'move';
         dragDom = this;
         // e.preventDefault();
       }
@@ -93,6 +93,7 @@
     list2.ondrop = function (e) {
       console.log(e, 'ondrop');
       // e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
       list2.append(dragDom);
     }
     /* 回拽 */

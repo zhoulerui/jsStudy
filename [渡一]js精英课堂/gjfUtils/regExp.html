@@ -463,10 +463,11 @@
       console.log(result, str.charAt(index))
     }
     var str = '1000000000000';
-    var str1 = '1000000000000';
     var reg = /(?=(\B)(\d{3})+$)/g;
+    var str1 = '1000000000000';
     var reg1 = /(?=(\B)(\d{3})+$)/g;
     console.log(str1.match(reg1),'====222=====')
+    console.log(str1.replace(reg1, ','))
     console.log(str.match(reg),'=========')
     console.log(str.replace(reg, ','))
     var result = '';
