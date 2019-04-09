@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-04-08 17:16:28 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-09 10:05:54
+ * @Last Modified time: 2019-04-09 19:49:26
  * 视频播放控件样式表
  */
 html,body{
@@ -22,25 +22,24 @@ ul{
   overflow: hidden;
 }
 .box{
-  
+  font-size: 0;
 }
 .video{
   width: 100%;
 }
 /* 控件 */
 .control-box{
-  /* display: none; */
-  /* opacity: 0; */
   transition: all .35s linear;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   line-height: 75px;
-  /* height: 0; */
+  height: 0;
   padding: 0 25px;
-  background: rgba(0,0,0,0.5);
+  overflow: hidden;
   color: #fff;
+  background: rgba(0,0,0,0.5);
 }
 .btn{
   display: inline-block;
@@ -141,7 +140,6 @@ ul{
 }
 .font{
   font-size: 20px;
-  /* margin-right: 10px; */
   cursor: pointer;
 }
 .font:hover{
@@ -178,7 +176,6 @@ ul{
   background: rgb(255, 255, 255);
   color: #70767c;
   border-radius: 5px;
-  /* overflow: hidden; */
 }
 .multiple-list::after{
   content: "";

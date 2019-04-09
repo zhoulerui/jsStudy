@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-04-09 17:24:59 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-09 18:09:58
+ * @Last Modified time: 2019-04-09 19:48:51
  */
 (function () {
   var myUtils = xingorg1Time;
@@ -29,7 +29,7 @@
     this.volumeNum = 0.25;
     this.initVolum(this.volumeNum);
     /* 出现或隐藏控制条 */
-    /* addEvent(this.videoBox,'mouseenter',function(){
+    addEvent(this.videoBox,'mouseenter',function(){
       this.hideControl();
     }.bind(this));
     addEvent(this.videoBox,'mousemove',function(){
@@ -39,51 +39,16 @@
     addEvent(this.videoBox,'mouseleave',function(){
       clearTimeout(this.timer2);
       this.controlBox.style.height = '0px'; 
-    }.bind(this)); */
+    }.bind(this));
 
 
     /* 双击播放 */
     addEvent(this.videoBox, 'dblclick', function () {
-      // this.playVideo();
+      this.playVideo();
     }.bind(this));
     // btn - 播放或暂停
     addEvent(this.player, 'click', function () {
       this.playVideo();
-    }.bind(this));
-    /* 键盘监听 */
-    addEvent(document, 'keydown', function (e) {
-      var code = e.keyCode;
-      console.log(code);
-      switch (e.keyCode) {
-        // 空格键播放暂停
-        case 32:
-          this.playVideo();
-          break;
-          // 音量+
-        case 38:
-          this.volumFUn(true);
-          break;
-          // 音量-
-        case 40:
-          this.volumFUn(false);
-          break;
-          // 音频进度+
-        case 40:
-          // this.volumFUn(false);
-          break;
-          // 音频进度-
-        case 37:
-          // this.volumFUn(false);
-          break;
-          // esc退出全屏
-        case 192:
-          this.scaleScreen();
-          break;
-        default:
-          return false;
-      }
-
-      // 左右箭头改视频播放进度
     }.bind(this));
 
     /* 全屏缩放 */
@@ -126,6 +91,38 @@
         self.video.playbackRate = parseFloat(this.innerText);
       });
     }
+    /* 键盘监听 */
+    addEvent(document, 'keydown', function (e) {
+      switch (e.keyCode) {
+        // 空格键播放暂停
+        case 32:
+          this.playVideo();
+          break;
+          // 音量+
+        case 38:
+          this.volumFUn(true);
+          break;
+          // 音量-
+        case 40:
+          this.volumFUn(false);
+          break;
+          // 视频进度+
+        case 39:
+          this.controlVideo(true);
+          break;
+          // 视频进度-
+        case 37:
+          this.controlVideo(false);
+          break;
+          // esc退出全屏
+        case 192:
+          this.scaleScreen();
+          break;
+        default:
+          return false;
+      }
+      // 左右箭头改视频播放进度
+    }.bind(this));
   }
   MyVideo.prototype = {
     videoWidth: 800,
@@ -148,20 +145,26 @@
     multiple: document.getElementById('multiple'), //倍速按钮
     multipleList: document.getElementById('multiple-list'), //倍速列表
     mulLi: multiple.getElementsByTagName('li'),
+    goPlay: function () {
+      this.goProgress();
+      this.timer1 = setInterval(function () {
+        this.goProgress();
+      }.bind(this), 1000);
+    },
     playVideo: function () {
       // 播放视频
       if (this.video.paused) {
         this.video.play();
         this.player.innerText = '暂停';
-        this.goProgress();
-        this.timer1 = setInterval(function () {
-          this.goProgress();
-        }.bind(this), 1000);
+        this.goPlay();
       } else {
-        this.video.pause();
-        this.player.innerText = '播放';
-        clearInterval(this.timer1);
+        this.pauseVideo();
       }
+    },
+    pauseVideo: function () {
+      this.video.pause();
+      this.player.innerText = '播放';
+      clearInterval(this.timer1);
     },
     curTimeFun: function (site, length) {
       // 时间变化处理函数 - 难点主要是秒数转换为时分秒格式
@@ -182,14 +185,35 @@
       this.curTimeFun(progressLeft, progressNum);
       if (curT >= tolT) {
         // 播放完毕清除定时器
-        clearInterval(this.timer1)
+        this.pauseVideo();
       }
+    },
+    controlVideo: function (down) {
+      // 键盘左右键前进或回退功能，
+      var diploid = 2, //每次前进或者回退的秒数，这里是2秒（实际加上触发函数后的1秒，每次前进或后退结果是3秒）
+        targ = 0,
+        curT = this.video.currentTime,
+        tolT = this.video.duration;
+      clearInterval(this.timer1);
+      if (down) {
+        // 快进
+        targ = otherU.add(curT, diploid); //在当前时间的基础上加上倍数
+        this.video.currentTime = targ >= tolT ? tolT : targ; //临界值判断
+      } else {
+        // 后退
+        // this.video.currentTime -= 10;
+        targ = otherU.subtract(curT, diploid); //在当前时间的基础上减去倍数
+        this.video.currentTime = targ <= 0 ? 0 : targ;
+      }
+      this.goPlay();
     },
     hideControl: function () {
       // 隐藏控制条
       this.controlBox.style.height = '75px';
+      this.controlBox.style.overflow = 'visible';
       this.timer2 = setTimeout(function () {
         this.controlBox.style.height = '0px';
+        this.controlBox.style.overflow = 'hidden';
       }.bind(this), 3000);
     },
     volumFUn: function (add) {
