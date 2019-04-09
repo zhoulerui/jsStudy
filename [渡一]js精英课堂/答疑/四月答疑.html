@@ -76,6 +76,18 @@
     // *特殊，这种做法，就能修改对象里属性card1的值
     son.asset.card1 = '招商银行'
     console.log(son.asset);
+    // 什么乱七八糟的写法
+    function mrDeng(){
+      var name = 'hah',
+      age = 40,
+      sex = 'male',
+      health = 100
+    }
+    mrDeng();
+    console.log(mrDeng.name);
+    // 函数的name属性修改
+    mrDeng.name = 'guojufeng'
+    console.log(mrDeng.name);
   </script>
 </body>
 
