@@ -18,7 +18,7 @@ var m1 = require('../jsName');
 var m2 = require('../../jsName');
 var m3 = require('../jsName');
 
-// 要想获得返回值，得这么操作：
+// 要想获得返回值，得对应的这么操作：
 m1.foo();
 m2();
 m3();
