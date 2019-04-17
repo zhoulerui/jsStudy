@@ -2,15 +2,16 @@
  * @Author: @Guojufeng 
  * @Date: 2019-04-16 21:09:31 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-16 21:12:15
- * 模块1js
+ * @Last Modified time: 2019-04-17 10:39:44
+ * 模块m1js
  */
-define(myModules, function () {
+define('myModules', function () {
+  // myModules表示当前模块的id，别人引入m1时，对应的名字就必须是这个。
   var name = '我的第一个AMD文件';
   var obj = {
     name
   }
-  console.log(name);
+  console.log(name);//引入后是立即执行的。这也就是依赖前置
   function getName() {
     name += '!';
     console.log(name);
@@ -22,5 +23,4 @@ define(myModules, function () {
   return {
     getName: getName
   }
-
 });
