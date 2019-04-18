@@ -5,7 +5,7 @@ define(moduleId,[
   'dependency'
 ], function(require, factory) {
   'use strict';
-  
+  return {}
 });
 // 加载模块
 require.config({

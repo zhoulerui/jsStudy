@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-04-16 21:09:00 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-17 10:57:35
+ * @Last Modified time: 2019-04-18 16:43:46
  * 入口js文件
  */
 (function () {
@@ -14,6 +14,7 @@
       // m1: './modules/m1',//注意：这么引入是错的，因为我在m1文件中给m1模块define的时候填了第一个id参数，作用是给这个模块命名了，所以这里引入的时候还得用那个相同的id名字。
       myModules: './modules/m1',
       m2: './modules/m2', //m2模块没有定义id名，可以用id名字
+      module03: './modules/m3', //m2模块没有定义id名，可以用id名字
       // jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min'
       // jquery在源码中定义了AMD模式时，模块的名字为小写jquery，换其他名字不好使
       jquery: './libs/jquery.min' //用了baseUrl后，因为jquery和另外两个模块地址不同，所以也会使用baseUrl

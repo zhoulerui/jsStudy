@@ -10,12 +10,12 @@
   <iframe src="./iframe2.html" frameborder="1"></iframe>
   <script>
     var iframe = document.getElementsByTagName('iframe')[0];
-    console.log(iframe,iframe.contentWindow)
+    console.log(iframe,iframe.contentWindow,iframe.contentWindow.document)
     iframe.onload = function(){
       console.log(23)
       console.log( iframe.contentWindow.name )
     }
-    window.frames[]
+    // window.frames[]
   </script>
 </body>
 </html>
