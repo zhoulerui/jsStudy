@@ -1082,6 +1082,11 @@
     var reg = /(?=(\B)(\d{3})+$)/g;//匹配，后边有3数字的空,三个数字前边为非单词边界
     console.log(str.match(reg));
     console.log(str.replace(reg,','));
+
+    // 如何获取一个字符串中的数字字符，并按数组形式输出
+    var str = 'aoa234osfjiua142sjgo23iasdug12apwe';
+    var reg = /\d+/g;
+    console.log(str.match(reg))
   </script>
   
 </body>
