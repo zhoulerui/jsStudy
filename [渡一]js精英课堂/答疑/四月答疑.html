@@ -10,6 +10,11 @@
 
 <body>
   <script>
+    var aa = 4;
+    aa ++;
+    console.log(aa)
+    if (aa==5) {aa=0;}
+    console.log(aa);
     // 字面量对象属性的修改
     var obj = {
       name: 'xiaoming',
@@ -72,7 +77,7 @@
     son.money = 12312;//修改不了原型的原始属性值
     son.hobby = ['shopping','reading','eating','movie'],//修改不了原型的引用类型值
     console.log(son,son.asset);
-    debugger;
+    // debugger;
     // *特殊，这种做法，就能修改对象里属性card1的值
     son.asset.card1 = '招商银行'
     console.log(son.asset);
@@ -88,6 +93,14 @@
     // 函数的name属性修改
     mrDeng.name = 'guojufeng'
     console.log(mrDeng.name);
+    var obj = {
+      a: 1,
+      c: function(){
+        return this.a
+      }
+    }
+    console.log(obj.c())
+    console.log(obj)
   </script>
 </body>
 
