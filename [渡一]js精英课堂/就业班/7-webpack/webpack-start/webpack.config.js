@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-04-25 19:58:12 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-26 20:13:36
+ * @Last Modified time: 2019-04-27 23:34:02
  */
 var path = require('path');//引入node接口 - 路径
 // var glob = require('glob');//glob变量
@@ -25,6 +25,24 @@ var config = {
       test: /\.css$/,
       use: [MiniCssExtractPlugin.loader,'css-loader']//单独抽离css文件和解析的行间样式style-loader是不能在一起的。所以改成这样
       // use: ['style-loader','css-loader']//加载处理css的loader，因为除了js文件以外，webpack都要依赖loader才能处理文件
+    },
+    {
+      test: /\.scss$/,
+      use: [//use的第二种写法,一般用于loader有单独的配置项的时候。
+        {
+          loader: 'style-loader',
+          options: {
+            //添加loader的配置
+          }
+
+        },
+        {
+          loader: 'css-loader'
+        },
+        {
+          loader: 'sass-loader'
+        }
+      ]
     }]
   },
   plugins: [
