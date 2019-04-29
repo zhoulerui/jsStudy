@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-04-29 16:44:09 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-29 18:16:06
+ * @Last Modified time: 2019-04-30 01:03:54
  */
 var gulp = require('gulp');
 /* 统一管理所有的路径地址 */
@@ -15,19 +15,31 @@ var floderUrl = {
 // 处理html的
 
 /* 处理html */
-gulp.task('html', function() {
-  gulp.src(floderUrl.src + 'html/*')
-    .pipe(gulp.dest(floderUrl.dist + 'html/'));
+gulp.task('html', async()=> {
+  await gulp.src('./src/html/index.html',{base: './src'})
+    .pipe(gulp.dest('dist'));
 });
-/* 处理css */
-
-/* 处理js */
-
-/* 处理img */
-
+// /* 处理css */
+// gulp.task('css', function() {
+//   return gulp.src(floderUrl.src + 'css/*')
+//     .pipe(gulp.dest(floderUrl.dist + 'css/'));
+// });
+// /* 处理js */
+// gulp.task('js', function() {
+//   gulp.src(floderUrl.src + 'js/*')
+//     .pipe(gulp.dest(floderUrl.dist + 'js/'));
+// });
+// /* 处理img */
+// gulp.task('img', function() {
+//   gulp.src(floderUrl.src + 'img/*')
+//     .pipe(gulp.dest(floderUrl.dist + 'img/'));
+// });
 /* 监听静态资源变化 */
 
 /* 配置默认任务 */
-gulp.task('default',['html'],function(){
-  console.log(floderUrl.src,floderUrl.dist)
-});
+// gulp.task('default',['html','css','js','img'],function(){
+//   console.log(floderUrl.src,floderUrl.dist)
+// });
+//gulp.series|4.0 依赖
+//gulp.parallel|4.0 多个依赖嵌套
+gulp.task('default',gulp.series(gulp.parallel('html')));
