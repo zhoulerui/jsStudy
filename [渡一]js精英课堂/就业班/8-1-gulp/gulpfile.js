@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-04-29 16:44:09 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-30 01:03:54
+ * @Last Modified time: 2019-04-30 10:21:25
  */
 var gulp = require('gulp');
 /* 统一管理所有的路径地址 */
@@ -15,9 +15,15 @@ var floderUrl = {
 // 处理html的
 
 /* 处理html */
-gulp.task('html', async()=> {
+/* gulp.task('html', async()=> {
   await gulp.src('./src/html/index.html',{base: './src'})
     .pipe(gulp.dest('dist'));
+}); */
+
+gulp.task('html', function() {
+  console.log('html111')
+  return gulp.src('../src/**/*.html')
+  .pipe(gulp.dest('../dist/html'))
 });
 // /* 处理css */
 // gulp.task('css', function() {

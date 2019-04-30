@@ -1,0 +1,252 @@
+/*
+* @Author: maty
+* @Date:   2018-01-05 14:39:53
+ * @Last Modified by: @Guojufeng
+ * @Last Modified time: 2019-04-28 15:28:08
+*/
+
+@import "_mixin.scss";
+@import "_popup.scss";
+@import "../../node_modules/yi-yiche-ui/m-widget/src/scss/modules/layout.scss";
+// layout.scss 已调用 common.scss";
+
+
+
+
+
+body{
+    min-height: 100vh;
+    background: url(../../images/bg-body.jpg) no-repeat left bottom / 750px 140px,
+                url(../../images/bg-body_y.jpg) repeat-y left top / 750px 100px;
+}
+
+
+.ranking-wrap{
+    padding-top: 348px;
+    padding-bottom: 60px;
+    background: url(../../images/banner.jpg) no-repeat left top / 750px 386px;
+}
+
+
+.rank-select{
+    .sel-box{
+        height: 60px;
+        line-height: 60px;
+        &>div{
+            width: 334px;
+        }
+        .text{
+            padding-right: 28px;
+            display: inline-block;
+            font-weight: bold;
+            background: url(../../images/gb-bsj.png) no-repeat right center / 16px 8px;
+        }
+    }
+    .brand-box{
+        float: left;
+        text-align: right;
+    }
+    .city-box{
+        float: right;
+    }
+    .sel-tip{
+        color: #809cb2;
+        font-size: 24px;
+        line-height: 32px;
+        text-align: center;
+    }
+}
+// 品牌&城市选择 end
+.rank_nodate{
+    display: none;
+    height: 600px;
+    line-height: 6rem;
+    text-align: center;
+    padding-top: 120px;
+    color: #9FC5F9;
+    background: url(../../images/bg-nodata.png) no-repeat center center / 243px auto;
+}
+
+
+.rank-list{
+    padding: 40px 30px 40px;
+    .rank-item{
+        padding: 20px 30px 20px 0;
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-radius: .2rem;
+        &:nth-of-type(1),
+        &:nth-of-type(2),
+        &:nth-of-type(3){
+            color: #fff;
+            .msg{
+                color: #fff;
+            }
+        }
+        &:nth-of-type(1){
+            background:linear-gradient(90deg,#ff9357,#ffd257);
+            .dd_pic:before{
+                content: '';
+                position: absolute;
+                left: 10px;
+                top: -6px;
+                width: 22px;
+                height: 20px;
+                display: block;
+                background: url(../../images/bg-hg.png) no-repeat left top / 22px 20px;
+            }
+        }
+        &:nth-of-type(2){
+            background:linear-gradient(90deg,#5793ff,#57ddff);
+        }
+        &:nth-of-type(3){
+            background:linear-gradient(90deg,#fc917c,#ffaa71);
+        }
+    }
+    .rank-item + .rank-item{
+        margin-top: 18px;
+    }
+    .dt_num{
+        width: 130px;
+        text-align: center;
+    }
+    .dd_pic{
+        position: relative;
+        margin-right: 30px;
+        width: 106px;
+        background: url(../../images/head.png) no-repeat left top / 100% 100%;
+        &:after{
+            content: '';
+            position: absolute;
+            right: 10px;
+            bottom: 0;
+            width: 24px;
+            height: 24px;
+            display: block;
+            background: url(../../images/bg-xx.png) no-repeat left top / 24px 24px;
+        }
+        .img-box{
+          width: 106px;
+          height: 106px;
+          overflow: hidden;
+          border: .03rem solid #ffd357;
+          border-radius: 50%;
+        }
+        .img{
+          display: block;
+          width: 100%;
+          object-fit: cover;
+        }
+    }
+    .dd_info{
+        min-width: 0;
+        flex: 1;
+        line-height: 40px;
+    }
+    .name-box{
+        height: 40px;
+        .name{
+            float: left;
+            max-width: 160px;
+            font-size: 32px;
+            font-weight: bold;
+            overflow:hidden;
+            empty-cells:show;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+        .msg{
+            float: right;
+            color: #999;
+            font-size: 24px;
+        }
+    }
+    
+    .info_bot{
+        margin-top: 4px;
+        height: 40px;
+        .num_big{
+            float: right;
+            font-size: 44px;
+            small{
+                font-size: 24px;
+            }
+        }
+        .diz{
+            max-width: 340px;
+            font-size: 24px;
+            overflow:hidden;
+            empty-cells:show;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+    }
+
+    
+
+
+    .small{
+        color: #999;
+        font-size: 24px;
+    }
+  }
+.list-more{
+    color: #809cb2;
+    line-height: 24px;
+    text-align: center;
+}
+// 排行榜列表 end
+// 标题下边的时间
+.rank-time{
+  color: #86D9FF;
+  font-weight:600;
+  font-size: 28px;
+  position: absolute;
+  text-align: center;
+  top: 214px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 43px;
+  line-height: 43px;
+  background: url(../../images/title-bg.png) no-repeat;
+  background-size: 361px 43px;
+  background-position: center center;
+}
+.op{
+  opacity: 0;
+}
+// loading
+.loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  // 
+}
+.loading .load{
+  width: 200px;
+  height: 200px;
+  padding-top: 55px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  border-radius: .1rem;
+  background: rgba(0,0,0,0.8);
+}
+.icon-loading{
+  display: block;
+  margin: 0 auto 12px;
+  width: 32px;
+  height: 32px;
+  background: url(../../images/loading.gif) no-repeat;
+  background-size: 100% 100%;
+}

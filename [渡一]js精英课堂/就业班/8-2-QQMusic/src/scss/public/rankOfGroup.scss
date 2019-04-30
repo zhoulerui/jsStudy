@@ -1,0 +1,267 @@
+/*
+ * @Author: @Guojufeng 
+ * @Date: 2019-04-28 15:07:59 
+ * @Last Modified by: @Guojufeng
+ * @Last Modified time: 2019-04-28 17:50:20
+ * 周榜页面
+ */
+@import "_mixin.scss";
+@import "_popup.scss";
+@import "../../node_modules/yi-yiche-ui/m-widget/src/scss/modules/layout.scss";
+
+//  variable
+$link: '../../images/';
+$online: '//yichehuoban-fed.bitauto.com/das/fed/yi-oph5/tree/f-starOfMonth-gjf/starOfMonth/dist/static/img/';
+$bgClr: #589AFD;
+$redClr: #FF6F6F;
+/* 变量 */
+
+@mixin bg($w, $h, $url) {
+  width: #{$w}px;
+  height: #{$h}px;
+  background: url(#{$link}#{$url}) no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin bgOnline($w, $h, $url) {
+  width: #{$w}px;
+  height: #{$h}px;
+  background: url(#{$online}#{$url}) no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin layer($alpha) {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, $alpha);
+}
+html,
+body,
+.group-rank-wrap{
+  min-height: 100vh;
+}
+/* page-css */
+.group-rank-wrap {
+  padding-top: 36px;
+  color: #fff;
+  text-align: center;
+  background: $bgClr url(../../images/group-banner.jpg) no-repeat;
+  background-size: 100% auto;
+
+  .logo {
+    margin-left: 25px;
+    margin-bottom: 47px;
+    @include bg(154, 30, 'group-logo.png');
+  }
+
+  .group-time {
+    display: inline;
+    position: relative;
+    font-size: 28px;
+    line-height: 28px;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    &::before {
+      width: 9px;
+      height: 9px;
+      top: 0;
+      left: -15 - 9px;
+      background: $redClr;
+    }
+
+    &::after {
+      width: 6px;
+      height: 6px;
+      top: 16px;
+      right: -15 - 6px;
+      background: #FFBA6F;
+    }
+  }
+
+  .group-title {
+    margin: 0 auto 17px;
+    @include bg(630, 99, 'group-title.png');
+  }
+
+  .group-name {
+    position: relative;
+    display: inline;
+    font-size: 32px;
+    line-height: 64px;
+    font-weight: 600;
+    padding: 12px 29px 13px 32px;
+    background: $redClr;
+    border-radius: .13rem .20rem;
+
+    &::before,
+    &::after {
+      content: "";
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    &::before {
+      top: -5px;
+      left: -5px;
+      background: #FFB761;
+    }
+
+    &::after {
+      bottom: -5px;
+      right: -5px;
+      background: #D68EFF;
+    }
+  }
+
+  // 表格
+  .group-table {
+    min-height: 300px;
+    color: #333;
+    margin-top: 268px;
+    padding-bottom: 35px;
+    background: #fff;
+    border-radius: .2rem;
+    overflow: hidden;
+  }
+  
+  .rank-select {
+    border-bottom: .08rem solid #eee;
+  }
+
+  .sel-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .box-btn {
+    flex: 1;
+    width: 100%;
+    padding: 27px 0;
+    position: relative;
+    color: #999;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      margin-left: 12px;
+      width: 0;
+      border: 0.07rem solid;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      vertical-align: middle;
+    }
+
+    &:hover,
+    .active {
+      color: #333;
+    }
+
+  }
+
+  .city-box {
+    &::before {
+      // 竖线
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 0;
+      width: 2px;
+      height: 47px;
+      background: #D4D4D4;
+    }
+  }
+  .rank-list{
+    // margin-bottom: 30px;
+  }
+  .yi-table{
+    position: relative;
+    border-collapse: collapse;//table消除 td 之间的间距
+  }
+  tr.rank-title{
+    border-bottom: 1px solid #D4D4D4;
+  }
+  thead th{
+    padding: 11px 15px;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  tbody{
+    position: relative;
+    &::before,&::after{
+      content: "";
+      position: absolute;
+      top: 100px;
+      bottom: -10px;
+      width: 14px;
+      background: #fff;
+    }
+    &::before{
+      left: 0;
+    }
+    &::after{
+      right: 0;
+    }
+  }
+ 
+  tbody tr td{
+    padding: 30px 15px;
+    font-weight: 400;
+    font-size: 20px;
+    border-bottom: 1px solid #D4D4D4;
+    position: relative;
+    &.star::after{
+      content: "";
+      // position: absolute;
+      display: inline-block;
+      width: 17px;
+      height: 16px;
+      margin-left: 3px;
+      background: url(../../images/group-star.png) no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+  .yi-table{
+    width: 750px;
+    overflow: hidden;
+  }
+   // 列表无数据
+   .rank_nodate {
+    display: none;
+    margin: 200px auto 30px;
+    padding: 190px 0 200px;
+    background: url('../../images/bg-nodata.png') no-repeat center top;
+    background-size: 243px 175px;
+  }
+
+  // 正在加载...
+  .list-more{
+    display: inline-block;
+    margin-top: 30px;
+    &.show::after{
+      content: "···";
+      font-weight: 500;
+    }
+  }
+  // 底部文案
+  .footer {
+    padding: 47px 53px;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    text-align: left;
+  }
+ 
+}

@@ -1,0 +1,113 @@
+extends ../node_modules/yi-yiche-ui/m-widget/src/pug/layout.pug
+block pugConfig
+  -const pugConfig={titleText:`伙伴之星 - 星排行`, cssName:`public`, confName:`index`, isNotSpa:false, otherJs: false, column:'1', bodyClassName:[''], hrefUrl:'../'};
+block mainLeft
+
+  .ranking-wrap
+    .rank-time.op 2019年 #[span.Month]月 第#[span.WeekNo]周
+    .rank-select
+      .sel-box
+        .brand-box #[span.text#carButton(data-id='null') 全部品牌]
+        .city-box #[span.text#cityButton(data-id='0') 全部城市]
+      .sel-tip.op 获得周之星人数#[span ]人
+    ///品牌&城市选择
+    .rank_nodate
+    .rank-list
+      //- -for(var i = 0; i < 20; i++)
+        dl.rank-item.one
+          dt.dt_num 1
+          dd.dd_pic
+            div.img-box
+              img.img(src='http://img3.baa.bitautotech.com/newavatar/2018/08/02/32789797_120_de590f8f-3bed-4578-a197-876568572db2.jpg')
+          dd.dd_info
+            h2.name-box #[span.msg 本周活跃度平均分]#[span.name 尹银萍]
+            .info_bot #[span.num_big 75.8#[small 分]]#[p.diz 北京方庄本田店]
+    .list-more
+    ///排行榜列表
+  .yi-popup-mask
+  .yi-popup.translR#cityPopup
+    .pop-scroll.yi-province
+      dl.list-box
+        //- dt.all #[p.txt 全部城市]
+        //- dt.tit #[span A]
+        //- dd.lst #[p.txt 安徽]
+        //- dt.tit #[span B]
+        //- dd.lst #[p.txt 北京]
+    .pop-scroll.yi-city.translR
+      dl.list-box
+        dt.tit.pop-back #[span 广东]
+        //- dd.lst #[p.txt 广州]
+        //- dd.lst #[p.txt 深圳]
+  /// 省市结束
+  .yi-popup.translR#carPopup
+    .pop-scroll.yi-carbrand
+      dl.list-box
+        dt.lst(data-id='null') #[p.car-name 全部品牌]
+        dd.lst(data-id='Member128') #[p.car-name 奥迪]
+        dd.lst(data-id='Member127') #[p.car-name 宝马]
+        dd.lst(data-id='Member126') #[p.car-name 保时捷]
+        dd.lst(data-id='Member018') #[p.car-name 北京现代]
+        dd.lst(data-id='Member123') #[p.car-name 奔驰]
+        dd.lst(data-id='Member122') #[p.car-name 比亚迪]
+        dd.lst(data-id='Member026') #[p.car-name 别克]
+        dd.lst(data-id='Member118') #[p.car-name 东风本田]
+        dd.lst(data-id='Member109') #[p.car-name 东风风行]
+        dd.lst(data-id='Member116') #[p.car-name 东风日产]
+        dd.lst(data-id='Member113') #[p.car-name 东风小康]
+        dd.lst(data-id='Member111') #[p.car-name 东风悦达起亚]
+        dd.lst(data-id='Member009') #[p.car-name 福特]
+        dd.lst(data-id='Member079') #[p.car-name 广汽本田]
+        dd.lst(data-id='Member107') #[p.car-name 广汽传祺]
+        dd.lst(data-id='Member092') #[p.car-name 广汽菲克]
+        dd.lst(data-id='Member106') #[p.car-name 广汽丰田]
+        dd.lst(data-id='Member031') #[p.car-name 广汽三菱]
+        dd.lst(data-id='Member038') #[p.car-name 汉腾]
+        dd.lst(data-id='Member215') #[p.car-name 华晨汽车]
+        dd.lst(data-id='Member096') #[p.car-name 吉利]
+        dd.lst(data-id='Member095') #[p.car-name 江淮]
+        dd.lst(data-id='Member039') #[p.car-name 江铃]
+        dd.lst(data-id='Member093') #[p.car-name 捷豹路虎]
+        dd.lst(data-id='Member165') #[p.car-name 捷途]
+        dd.lst(data-id='Member025') #[p.car-name 凯迪拉克]
+        dd.lst(data-id='Member091') #[p.car-name 雷克萨斯]
+        dd.lst(data-id='Member090') #[p.car-name 雷诺]
+        dd.lst(data-id='Member088') #[p.car-name 猎豹]
+        dd.lst(data-id='Member141') #[p.car-name 领克]
+        dd.lst(data-id='Member033') #[p.car-name 奇瑞]
+        dd.lst(data-id='Member115') #[p.car-name 启辰]
+        dd.lst(data-id='Member067') #[p.car-name 上汽大通]
+        dd.lst(data-id='Member030') #[p.car-name 上汽大众]
+        dd.lst(data-id='Member027') #[p.car-name 上汽名爵]
+        dd.lst(data-id='Member028') #[p.car-name 上汽荣威]
+        dd.lst(data-id='Member029') #[p.car-name 斯柯达]
+        dd.lst(data-id='Member020') #[p.car-name 沃尔沃]
+        dd.lst(data-id='Member209') #[p.car-name 五菱-宝骏]
+        dd.lst(data-id='Member024') #[p.car-name 雪佛兰]
+        dd.lst(data-id='Member012') #[p.car-name 一汽奔腾]
+        dd.lst(data-id='Member203') #[p.car-name 一汽-大众]
+        dd.lst(data-id='Member015') #[p.car-name 一汽丰田]
+        dd.lst(data-id='Member013') #[p.car-name 一汽红旗]
+        dd.lst(data-id='Member011') #[p.car-name 一汽马自达]
+        dd.lst(data-id='Member169') #[p.car-name 长安乘用]
+        dd.lst(data-id='Member007') #[p.car-name 长安马自达]
+        dd.lst(data-id='Member006') #[p.car-name 长安欧尚]
+        dd.lst(data-id='Member004') #[p.car-name 长城]
+        dd.lst(data-id='Member034') #[p.car-name 长城WEY]
+        dd.lst(data-id='Member001') #[p.car-name 众泰]
+    //- 品牌 end
+  /// 品牌车型结束
+  // loading
+  .loading
+    .load #[i.icon.icon-loading]加载中...
+  script.
+    var bType = 0; //统计数据用的，都填0
+    var bId = '0';
+    var bSubId = '0';
+    var bTypeKeyId = '0';
+    var photourl ="https://img1.bitautoimg.com/das/fed/yi-oph5/tree/release/rankingOfWeek/dist/images/share.jpg";
+    var shareTitle = "伙伴之星•星排行";//伙伴之星•星排行 2019年X月第X周
+    var shareLink = 'https://link.easypass.cn/PartnerStar/web2019/rankingOfWeek.html';
+    var shareDesc = '本周伙伴之星光荣榜';
+  script(src="https://image.bitautoimg.com/das/fe/cdnJs/jquery-1.4.2.min.js")
+  script(src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js")
+  script(src="https://img.easypass.cn/bt/dealerh5/20151015/js/wxshare.min.js" type="text/javascript")
