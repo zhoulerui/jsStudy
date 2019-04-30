@@ -1,14 +1,19 @@
 var gulp = require("gulp");
-var imagemin = require("gulp-imagemin")
 var htmlclean = require("gulp-htmlclean");
-var uglify = require("gulp-uglify");
-var stripDebug = require("gulp-strip-debug");
-var concat = require("gulp-concat");
-var deporder = require("gulp-deporder");
+
+var imagemin = require("gulp-imagemin")
+
 var less = require("gulp-less");
 var postcss = require("gulp-postcss");
 var autoprefixer = require("autoprefixer");
 var cssnano = require("cssnano");
+
+var uglify = require("gulp-uglify");
+var stripDebug = require("gulp-strip-debug");
+
+var concat = require("gulp-concat");
+var deporder = require("gulp-deporder");
+
 var connect = require("gulp-connect");
 
 
@@ -52,7 +57,6 @@ gulp.task("css",function(){
     if(!devMode){
         options.push(cssnano())
     }
-        
     css.pipe(postcss(options))
     .pipe(gulp.dest(folder.dist + "css/"))
 })

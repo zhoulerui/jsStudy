@@ -1,7 +1,1 @@
-/*
- * @Author: @Guojufeng 
- * @Date: 2019-04-29 17:48:03 
- * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-29 23:10:51
- */
-console.log('成功了。')
+console.log("成功了！！!");var h5=!1,rst=h5/0;if(rst?(console.log("if NaN"),console.log(2*rst+"24")):(console.log("NaN = false，!NaN = true = 1"),console.log(2*!rst+"24")),h5){var a=1,b=2;console.log(a+b)}
