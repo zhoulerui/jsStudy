@@ -2,7 +2,7 @@
 * @Author: maty
 * @Date:   2018-01-05 14:39:53
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-04-30 17:20:05
+ * @Last Modified time: 2019-05-01 01:27:32
 */
 /*
  * @Author: matianye@ 
@@ -173,11 +173,168 @@ img {
 .block {
   display: block; }
 
+html,
 body {
   min-height: 100vh;
-  background: url(../../images/bg-body.jpg) no-repeat left bottom/7.5rem 1.4rem, url(../../images/bg-body_y.jpg) repeat-y left top/7.5rem 1rem; }
+  color: #fff;
+  background: #262b48;
+  background: #805d33; }
+
+.recode-img,
+.rocker,
+.btn-reback,
+.user-head {
+  text-indent: -99.99rem; }
+
+img {
+  display: block;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover; }
+  img[src=""] {
+    opacity: 0; }
+
+header {
+  padding: 0.2rem 0.35rem 0.15rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+  header .btn-reback {
+    float: left;
+    width: 0.35rem;
+    height: 0.35rem;
+    margin-top: 0.2rem;
+    border: 2px solid transparent;
+    border-bottom-color: #fff;
+    border-left-color: #fff;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg); }
+  header .info {
+    float: left; }
+    header .info .title {
+      font-size: 0.3rem; }
+    header .info a {
+      font-size: 0.24rem;
+      color: #fff;
+      position: relative; }
+      header .info a::after {
+        content: "";
+        position: absolute;
+        top: 0.08rem;
+        width: 0.12rem;
+        height: 0.12rem;
+        border: 1px solid transparent;
+        border-bottom-color: #fff;
+        border-right-color: #fff;
+        -webkit-transform: rotate(-45deg);
+                transform: rotate(-45deg); }
+  header .btns-contact {
+    float: right;
+    overflow: hidden;
+    line-height: 0.7rem; }
+    header .btns-contact .btn-attention,
+    header .btns-contact .btn-share {
+      float: left; }
+    header .btns-contact .btn-attention {
+      position: relative;
+      margin-top: 0.05rem;
+      font-size: 0.26rem;
+      line-height: 0.55rem;
+      margin-right: 0.3rem;
+      padding-right: 0.2rem;
+      padding-left: 0.8rem;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 45px 45px 45px 45px; }
+    header .btns-contact .user-head {
+      position: absolute;
+      top: -0.05rem;
+      left: 0;
+      width: 0.65rem;
+      height: 0.65rem;
+      display: inline-block;
+      margin-right: 0.1rem;
+      vertical-align: middle;
+      border-radius: 50%;
+      background: #fff; }
+
+.main-content {
+  position: absolute;
+  top: 1.06rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden; }
+  .main-content::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 5.8rem;
+    height: 5.8rem;
+    margin: 1.2rem auto 0;
+    border-radius: 50%;
+    border: 30px solid #dbcccc;
+    opacity: 0.25;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
+  .main-content .rocker {
+    position: absolute;
+    top: 0;
+    left: 54%;
+    z-index: 1;
+    width: 3.5rem;
+    height: 0.8rem;
+    border: 10px solid #fff;
+    border-bottom: none;
+    border-left: none;
+    border-radius: 10px;
+    -webkit-transform: rotate(25deg) translateZ(0);
+            transform: rotate(25deg) translateZ(0);
+    -webkit-transform-origin: left top;
+            transform-origin: left top;
+    -webkit-transition: -webkit-transform .75s linear;
+    transition: -webkit-transform .75s linear;
+    transition: transform .75s linear;
+    transition: transform .75s linear, -webkit-transform .75s linear; }
+    .main-content .rocker.down {
+      -webkit-transform: rotate(45deg) translateZ(0);
+              transform: rotate(45deg) translateZ(0); }
+    .main-content .rocker::before, .main-content .rocker::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      width: 0.5rem;
+      height: 0.5rem;
+      background: #fff; }
+    .main-content .rocker::before {
+      top: -0.3rem;
+      left: -0.3rem; }
+    .main-content .rocker::after {
+      bottom: -0.3rem;
+      right: -0.3rem; }
+  .main-content .recode-box {
+    position: relative;
+    z-index: 1;
+    width: 5.3rem;
+    height: 5.3rem;
+    margin: 1.45rem auto 0;
+    border-radius: 50%;
+    background: #020127;
+    overflow: hidden; }
+    .main-content .recode-box .recode-img {
+      height: 100%; }
+
+footer, .layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.layer {
+  position: absolute;
+  bottom: 0; }
 
 .loading {
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
