@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>may</title>
+</head>
+
+<body>
+  <script>
+    // 行参与实参映射 - 对应的形参和实参值个数不匹配时，多余位置的数将不再映射
+    function mapDemo(a, b) {
+      console.log("长度为" + (arguments.length == 1 ? "1,对应的形参和实参值个数不匹配" : "2,形参实参个数匹配,将要双宿双飞")); //arguments长度为1，但行参列表的长度为2.多余的第二位的参数将不再映射。
+      console.log(b, arguments[1]); //undefined,undefined;
+      arguments[1] = 2;
+      console.log(b, arguments[1]); //undefined,2
+      b = 3;
+      console.log(b, arguments[1]); // 3,2
+    }
+    mapDemo(1);
+    console.log('===个数匹配、双宿双飞分割线===');
+    mapDemo(1, 4);
+  </script>
+</body>
+
+</html>
