@@ -73,11 +73,14 @@
 
     function xingcan(a) {
       // var a = "var重新修改行参值会覆盖";
-      let a = '再用let声明同名变量会报错';
+      // let a = '再用let声明与形参同名的变量会报错';
 
       console.log(a);
     }
     xingcan('行参默认用var定义');
+    // 暂时性死区
+    let xx = xx + '还没声明就想用？';
+    console.log(xx)
   </script>
 
 </body>
