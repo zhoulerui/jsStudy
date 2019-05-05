@@ -79,8 +79,21 @@
     }
     xingcan('行参默认用var定义');
     // 暂时性死区
-    let xx = xx + '还没声明就想用？';
-    console.log(xx)
+    // let xx = xx + '还没声明就想用？';
+    // console.log(xx);
+
+    console.log(varInIf);
+    // console.log(letInIf);
+    if(false){
+      // if条件根本进不来，但是预编译与变量声明提升都会导致可以提前使用
+      var varInIf = 'var in if';
+      let letInIf = 'let in if';
+      console.log(letInIf)
+    }
+
+    let letVariable;
+    const constVariable;
+
   </script>
 
 </body>

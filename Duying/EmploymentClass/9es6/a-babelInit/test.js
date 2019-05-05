@@ -2,9 +2,85 @@
  * @Author: @Guojufeng 
  * @Date: 2019-05-04 16:37:16 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-04 18:54:08
+ * @Last Modified time: 2019-05-05 14:49:22
  */
-// 解构赋值
+/* 解构赋值 */
+let [des01,des02,des03] = [1,true,null];
+console.log(des01,des02,des03);
+// 甚至再骚的写法都行
+let [de01,[de02,de03]] = ['hah',[1,2]];
+console.log(de01,de02,de03);
+/* // 第一种写法,解构一个对象(先声明,后赋值;) */
+let obj = {
+  name: 'xing.org1^',
+  age: 12,
+  sex: 'female',
+  address: 'BeiJing·CHINA',
+  hobby: ['one','two',{
+    newObj: 'i am a Object'
+  }]
+}
+let name,age;
+({name,age} = obj);//这里注意小括号的包裹，否则会有报错
+console.log(name,age);
+
+/* // 第二种写法，直接解构一个对象(连带着声明变量+赋值) */
+let {sex, address} = obj;
+console.log(sex,address);
+
+/* // 第三种写法，解构对象时，声明的变量不必和对象属性同名 */
+let {name:　myName, sex:　mySex} = obj;
+console.log(myName,mySex);
+
+/* // 第四种写法，三的基础上，加入 默认赋值 做法 */
+let {age:　myAge, myPhone = 110} = obj;
+console.log(myAge,myPhone);
+
+
+/* // 第五种写法，解构数组 - 把数组当对象解构 */
+let {0: myOne, 1: myTwo, length: myLength} = obj.hobby;
+console.log(myOne,myTwo,myLength);
+// 这里比较特殊，记下含义：因为数组也是一种特殊的对象，上边obj.hobby这个数组写成完全对象的格式时，形如下边这么写：
+/* obj.hobby = {
+  0: 'one',
+  1: 'two',
+  length: 2
+} */
+// 所以按照第三种写法开始的那种键值对赋值的方式来写，就有了0、1、length对应新定义的myOne,myTwo,myLength三个变量这种写法了，实际上是把0，1，length当做数组里边对象的key值来获取的。
+
+
+/* // 第六种写法，解构数组  - 数组就要数组的姿态，用数组的形式结构数组 */
+let [myArrOne,myArrTwo] = obj.hobby;
+console.log(myArrOne,myArrTwo)
+
+/* // 第七种写法，解构数组中的对象 */
+let [,,{mynewObj}] = obj.hobby;
+console.log(mynewObj)
+// 特殊一点，这里注意let后边数组里的前两个逗号","的写法，因为数组中的前两个并不是我们要结构的目标对象，所以定义两项空内容。
+
+/* // 第八种写法，同样将数组中的对象key重命名并结构 */
+let [,,{newObj: myNewObj}] = obj.hobby;
+console.log(myNewObj)
+// 在第七种写法的基础上，结合第三种写法，举一反三的写法。
+
+/* 第九种写法 函数形参的解构赋值*/
+function add([x, y]){
+  return x + y;
+}
+
+add([1, 2]); // 3
+
+function move({x = 0, y = 0} = {}) {
+  return [x, y];
+}
+
+move({x: 3, y: 8}); // [3, 8]
+move({x: 3}); // [3, 0]
+move({}); // [0, 0]
+move(); // [0, 0]
+/*解构赋值  常用场景，结构ajax请求返回来的数据 */
+
+
 
 // babel默认不转换API
 // 比如Object.assign、promise这些
@@ -32,7 +108,7 @@ newObj.b.c = '浅拷贝';
 console.log(assign1, assign2, newObj);
 
 // es7 - 扩展运算符
-var obj = {
+var obj1 = {
   name: 'xing.org1',
   age: 18,
   IDCard: {
@@ -41,12 +117,12 @@ var obj = {
   }
 }
 var obj2 = {
-  ...obj,
+  ...obj1,
   sex: 'female'
 }
 console.log(obj2);
 obj2.IDCard.address = 'HangZhou CHINA';
-console.log(obj.IDCard.address, obj2); // 浅拷贝
+console.log(obj1.IDCard.address, obj2); // 浅拷贝
 
 // es6扩展运算符浅克隆
 

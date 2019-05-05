@@ -6,18 +6,141 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 /*
  * @Author: @Guojufeng 
  * @Date: 2019-05-04 16:37:16 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-04 18:54:08
+ * @Last Modified time: 2019-05-05 14:49:22
  */
-// 解构赋值
+
+/* 解构赋值 */
+var des01 = 1,
+    des02 = true,
+    des03 = null;
+console.log(des01, des02, des03); // 甚至再骚的写法都行
+
+var de01 = 'hah',
+    de02 = 1,
+    de03 = 2;
+console.log(de01, de02, de03);
+/* // 第一种写法,解构一个对象(先声明,后赋值;) */
+
+var obj = {
+  name: 'xing.org1^',
+  age: 12,
+  sex: 'female',
+  address: 'BeiJing·CHINA',
+  hobby: ['one', 'two', {
+    newObj: 'i am a Object'
+  }]
+};
+var name, age;
+name = obj.name;
+age = obj.age;
+//这里注意小括号的包裹，否则会有报错
+console.log(name, age);
+/* // 第二种写法，直接解构一个对象(连带着声明变量+赋值) */
+
+var sex = obj.sex,
+    address = obj.address;
+console.log(sex, address);
+/* // 第三种写法，解构对象时，声明的变量不必和对象属性同名 */
+
+var myName = obj.name,
+    mySex = obj.sex;
+console.log(myName, mySex);
+/* // 第四种写法，三的基础上，加入 默认赋值 做法 */
+
+var myAge = obj.age,
+    _obj$myPhone = obj.myPhone,
+    myPhone = _obj$myPhone === void 0 ? 110 : _obj$myPhone;
+console.log(myAge, myPhone);
+/* // 第五种写法，解构数组 - 把数组当对象解构 */
+
+var _obj$hobby = obj.hobby,
+    myOne = _obj$hobby[0],
+    myTwo = _obj$hobby[1],
+    myLength = _obj$hobby.length;
+console.log(myOne, myTwo, myLength); // 这里比较特殊，记下含义：因为数组也是一种特殊的对象，上边obj.hobby这个数组写成完全对象的格式时，形如下边这么写：
+
+/* obj.hobby = {
+  0: 'one',
+  1: 'two',
+  length: 2
+} */
+// 所以按照第三种写法开始的那种键值对赋值的方式来写，就有了0、1、length对应新定义的myOne,myTwo,myLength三个变量这种写法了，实际上是把0，1，length当做数组里边对象的key值来获取的。
+
+/* // 第六种写法，解构数组  - 数组就要数组的姿态，用数组的形式结构数组 */
+
+var _obj$hobby2 = _slicedToArray(obj.hobby, 2),
+    myArrOne = _obj$hobby2[0],
+    myArrTwo = _obj$hobby2[1];
+
+console.log(myArrOne, myArrTwo);
+/* // 第七种写法，解构数组中的对象 */
+
+var _obj$hobby3 = _slicedToArray(obj.hobby, 3),
+    mynewObj = _obj$hobby3[2].mynewObj;
+
+console.log(mynewObj); // 特殊一点，这里注意let后边数组里的前两个逗号","的写法，因为数组中的前两个并不是我们要结构的目标对象，所以定义两项空内容。
+
+/* // 第八种写法，同样将数组中的对象key重命名并结构 */
+
+var _obj$hobby4 = _slicedToArray(obj.hobby, 3),
+    myNewObj = _obj$hobby4[2].newObj;
+
+console.log(myNewObj); // 在第七种写法的基础上，结合第三种写法，举一反三的写法。
+
+/* 第九种写法 函数形参的解构赋值*/
+
+function add(_ref) {
+  var _ref2 = _slicedToArray(_ref, 2),
+      x = _ref2[0],
+      y = _ref2[1];
+
+  return x + y;
+}
+
+add([1, 2]); // 3
+
+function move() {
+  var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref3$x = _ref3.x,
+      x = _ref3$x === void 0 ? 0 : _ref3$x,
+      _ref3$y = _ref3.y,
+      y = _ref3$y === void 0 ? 0 : _ref3$y;
+
+  return [x, y];
+}
+
+move({
+  x: 3,
+  y: 8
+}); // [3, 8]
+
+move({
+  x: 3
+}); // [3, 0]
+
+move({}); // [0, 0]
+
+move(); // [0, 0]
+
+/*解构赋值  常用场景，结构ajax请求返回来的数据 */
 // babel默认不转换API
 // 比如Object.assign、promise这些
 // Object.assign(目标对象,克隆对象1，克隆对象2);
 // 会以浅克隆的方式，将后边对象的值复制到目标对象里边去。
 // import '@babel/polyfill';
+
 var assign1 = {
   a: 1,
   b: {
@@ -36,7 +159,7 @@ newObj.aa = 3;
 newObj.b.c = '浅拷贝';
 console.log(assign1, assign2, newObj); // es7 - 扩展运算符
 
-var obj = {
+var obj1 = {
   name: 'xing.org1',
   age: 18,
   IDCard: {
@@ -45,13 +168,13 @@ var obj = {
   }
 };
 
-var obj2 = _objectSpread({}, obj, {
+var obj2 = _objectSpread({}, obj1, {
   sex: 'female'
 });
 
 console.log(obj2);
 obj2.IDCard.address = 'HangZhou CHINA';
-console.log(obj.IDCard.address, obj2); // 浅拷贝
+console.log(obj1.IDCard.address, obj2); // 浅拷贝
 // es6扩展运算符浅克隆
 
 var arrA = [{

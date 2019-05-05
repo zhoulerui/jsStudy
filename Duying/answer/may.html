@@ -6,9 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>may</title>
+  <style>
+    :not(p){
+      color: green;
+    }
+    #markEare{
+      margin-top: 1200px;
+      padding-bottom: 200px;
+      border: 1px solid;
+    }
+  </style>
 </head>
 
 <body>
+  <h1>class选择器not</h1>
+  <p>cs3选择器not - color继承</p>
+  <a href="http://www.baidu.com" target="_self" >点击在自身页面打开目标地址</a>
+  <a href="#markEare" target="_self" >点击在自身页面打开锚点</a>
+  <div id="markEare">目标锚点</div>
   <script>
     // 行参与实参映射 - 对应的形参和实参值个数不匹配时，多余位置的数将不再映射
     function mapDemo(a, b) {
