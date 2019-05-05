@@ -7,27 +7,40 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>may</title>
   <style>
-    :not(p){
+    :not(p) {
       color: green;
     }
-    #markEare{
+
+    #markEare {
       margin-top: 1200px;
       padding-bottom: 200px;
       border: 1px solid;
+    }
+
+    .borderTop {
+      height: 300px;
+      background: #edf;
+      border-bottom-left-radius: 50% 12%;
+      border-bottom-right-radius: 50% 12%;
+      overflow: hidden;
     }
   </style>
 </head>
 
 <body>
+  <div class="borderTop">
+    border-radius实现曲线效果
+  </div>
   <h1>class选择器not</h1>
   <p>cs3选择器not - color继承</p>
-  <a href="http://www.baidu.com" target="_self" >点击在自身页面打开目标地址</a>
-  <a href="#markEare" target="_self" >点击在自身页面打开锚点</a>
+  <a href="http://www.baidu.com" target="_self">点击在自身页面打开目标地址</a>
+  <a href="#markEare" target="_self">点击在自身页面打开锚点</a>
   <div id="markEare">目标锚点</div>
   <script>
     // 行参与实参映射 - 对应的形参和实参值个数不匹配时，多余位置的数将不再映射
     function mapDemo(a, b) {
-      console.log("长度为" + (arguments.length == 1 ? "1,对应的形参和实参值个数不匹配" : "2,形参实参个数匹配,将要双宿双飞")); //arguments长度为1，但行参列表的长度为2.多余的第二位的参数将不再映射。
+      console.log("长度为" + (arguments.length == 1 ? "1,对应的形参和实参值个数不匹配" :
+      "2,形参实参个数匹配,将要双宿双飞")); //arguments长度为1，但行参列表的长度为2.多余的第二位的参数将不再映射。
       console.log(b, arguments[1]); //undefined,undefined;
       arguments[1] = 2;
       console.log(b, arguments[1]); //undefined,2
@@ -39,18 +52,19 @@
     mapDemo(1, 4);
     // 预编译、作用域与变量递增
     var dizeng = 1,
-        toNumber = 'a1';
-    console.log(dizeng++);// 1,将变量转成数字并+1，返回没+1前的结果
-    console.log(toNumber++);// NaN,将变量转成数字并+1，返回没+1前的结果
+      toNumber = 'a1';
+    console.log(dizeng++); // 1,将变量转成数字并+1，返回没+1前的结果
+    console.log(toNumber++); // NaN,将变量转成数字并+1，返回没+1前的结果
 
     // 函数声明还能被重新赋值吗？
     console.log('函数声明还能被重新赋值吗？');
     // debugger;
     var smA = 0,
       smB = 0;
-    function shengmingFun(smA){ // 1 
+
+    function shengmingFun(smA) { // 1 
       console.log(shengmingFun);
-      shengmingFun = function(smB){ // 2
+      shengmingFun = function (smB) { // 2
         console.log(smA + smB++); // 0 + 2++ 错了
         // 这里是闭包，smA此时已经从传参的1++变成2了。但奇怪是函数shengmingFun初始是定义在window上的，即使这里被修改成了新的表达式，其作用域怎么就从window变成了shengmingFun了呢？
       }
@@ -58,12 +72,31 @@
     }
     shengmingFun(1);
     shengmingFun(2);
-    console.log(smA,smB,shengmingFun,window.shengmingFun);
+    console.log(smA, smB, shengmingFun, window.shengmingFun);
 
     // 仿造instanceof - 实例的__proto__指向构造函数的prototype
     var strings = '字符串';
     console.log(strings.__proto__);
     console.log(String.prototype);
+
+
+    // 任务队列
+    setTimeout(function () {
+      console.log(0);
+    });
+    new Promise(function (a, b) {
+      console.log(1);
+      for (let index = 0; index < 10; index++) {
+        index == 9 && a();
+      }
+      console.log(2);
+    }).then(function () {
+      console.log(3);
+    });
+    console.log(4);
+    setTimeout(function () {
+      console.log(5);
+    });
   </script>
 </body>
 
