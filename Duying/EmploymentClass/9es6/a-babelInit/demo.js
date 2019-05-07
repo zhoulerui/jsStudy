@@ -18,10 +18,30 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * @Author: @Guojufeng 
  * @Date: 2019-05-04 16:37:16 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-05 14:49:22
+ * @Last Modified time: 2019-05-07 09:52:01
  */
 
+/* 箭头函数 */
+// this的实际应用：
+function ThisFun() {
+  var _this = this;
+
+  this.button = document.getElementById('button');
+  this.count = 0;
+  /* this.button.onclick = function(){
+    console.log(this);//普通函数中，this指向button这个dom对象本身
+  } */
+
+  this.button.onclick = function () {
+    _this.count++; //箭头函数中，this指向实例化对象thisFun
+
+    console.log(_this.count);
+  };
+}
+
+var thisFun = new ThisFun();
 /* 解构赋值 */
+
 var des01 = 1,
     des02 = true,
     des03 = null;

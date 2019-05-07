@@ -97,6 +97,25 @@
     setTimeout(function () {
       console.log(5);
     });
+
+    // 
+    let x = 1;
+    let y = 2;
+    function show(){
+      var x = 3;
+      return {
+        x: x,
+        fun: function(a,b){
+          x = a + b;
+        }
+      }
+    }
+    var obj = show();
+    obj.fun(x,y);
+    console.log('作用域、闭包问题',obj.x,x);
+    window.onload = function(){
+      
+    }
   </script>
 </body>
 

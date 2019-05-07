@@ -2,8 +2,22 @@
  * @Author: @Guojufeng 
  * @Date: 2019-05-04 16:37:16 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-05 14:49:22
+ * @Last Modified time: 2019-05-07 09:52:01
  */
+/* 箭头函数 */
+// this的实际应用：
+function ThisFun(){
+  this.button = document.getElementById('button');
+  this.count = 0;
+  /* this.button.onclick = function(){
+    console.log(this);//普通函数中，this指向button这个dom对象本身
+  } */
+  this.button.onclick = () => {
+    this.count ++;//箭头函数中，this指向实例化对象thisFun
+    console.log(this.count);
+  }
+}
+let thisFun = new ThisFun();
 /* 解构赋值 */
 let [des01,des02,des03] = [1,true,null];
 console.log(des01,des02,des03);
