@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-05-04 16:37:16 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-07 09:52:01
+ * @Last Modified time: 2019-05-07 16:51:46
  */
 /* 箭头函数 */
 // this的实际应用：
@@ -19,6 +19,16 @@ function ThisFun(){
 }
 let thisFun = new ThisFun();
 /* 解构赋值 */
+// 解构赋值转化伪数组为数组：
+function args(){
+  console.log(arguments);
+  let oldArr = Array.prototype.slice.call(arguments);//之前的写法
+  let newArr = [...arguments];//解构赋值的方式[...arguments]
+  let newArr2 = Array.from(arguments);//Array.from
+  console.log(oldArr,newArr,newArr2);
+}
+args(1,2,3,23,2,42,34);
+// 
 let [des01,des02,des03] = [1,true,null];
 console.log(des01,des02,des03);
 // 甚至再骚的写法都行

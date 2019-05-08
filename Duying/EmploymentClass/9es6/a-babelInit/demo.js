@@ -18,7 +18,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * @Author: @Guojufeng 
  * @Date: 2019-05-04 16:37:16 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-07 09:52:01
+ * @Last Modified time: 2019-05-07 16:51:46
  */
 
 /* 箭头函数 */
@@ -41,6 +41,20 @@ function ThisFun() {
 
 var thisFun = new ThisFun();
 /* 解构赋值 */
+// 解构赋值转化伪数组为数组：
+
+function args() {
+  console.log(arguments);
+  var oldArr = Array.prototype.slice.call(arguments); //之前的写法
+
+  var newArr = Array.prototype.slice.call(arguments); //解构赋值的方式[...arguments]
+
+  var newArr2 = Array.from(arguments); //Array.from
+
+  console.log(oldArr, newArr, newArr2);
+}
+
+args(1, 2, 3, 23, 2, 42, 34); // 
 
 var des01 = 1,
     des02 = true,

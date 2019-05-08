@@ -45,7 +45,7 @@
       }
       return temp;
     }
-    console.log(uniq([1, 2, 3, 2, 34, "a", "b", "a", 2, 5, 2, 62, ]));
+    // console.log(uniq([1, 2, 3, 2, 34, "a", "b", "a", 2, 5, 2, 62, ]));
     // 排序后相邻去除法：简单，去重排序一起做。必须是纯数组
     function uniq3(array) {
       array.sort((a, b) => {
@@ -59,7 +59,22 @@
       }
       return temp;
     }
+    console.log(uniq3([1, 2, 1, 2, 12, 13, 235, 3])); // 缺点就是不能加入字符串
     console.log(uniq3([1, 2, "b", 1, 2, 12, 13, 235, 3, "a"])); // 缺点就是不能加入字符串
+    /* 数组中字符串排序去重 */
+    function uniq4(array) {
+      array.sort((a, b) => {
+        return (a + '').charCodeAt() - (b + '').charCodeAt()
+      });
+      var temp = [array[0]]; //关键点，先把第一个放进去
+      for (let i = 1; i < array.length; i++) { //i从1开始
+        if (array[i] !== temp[temp.length - 1]) {
+          temp.push(array[i])
+        }
+      }
+      return temp;
+    }
+    console.log(uniq4(['w', 'a', "b", 'w', 'n', 's', 's', 'b', 'e', "a"])); // 缺点就是不能混入别的
     /* 有问题再改改 */
     function uniq2(arr) {
       var temp = [],
@@ -91,7 +106,7 @@
      * @Author: @Guojufeng 
      * @Date: 2018-11-05 09:35:14 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2018-11-05 10:00:41
+ * @Last Modified time: 2019-05-07 15:23:38
      * 数组去重
      */
     // 思路 准备一个对象，循环数组时，将数组的值当做对象的键，且对应值为true/1皆可，然后每次拿数组的下一个值都去判断一下对象中是否有这个值，没有再push到新数组中去，最后返回新数组。
@@ -113,7 +128,28 @@
       return newArr;
     }
     console.log(uniqArr([1, 2, 23, 1, 35, 1, 6, 34]))
-    console.log(uniqArr([1, 2, 23, 1, "gjf", 1, 6, "gjf","gfj"]))
+    console.log(uniqArr([1, 2, 23, 1, "gjf", 1, 6, "gjf", "gfj"]))
+
+    var uniqArr05 = function (arr) {
+        var arr = Array.prototype.slice.call(arr), //这里防止伪数组，容错
+          obj = {},
+          newArr = [];
+        obj[arr[0]] = true; //这里没必要
+        newArr.push(arr[0]);
+        arr.forEach((el) => {
+          if (!obj[el]) {
+            obj[el] = true; //这里写成true，if里少一步隐式转换
+            newArr.push(el);
+          }
+        });
+        return newArr;
+      }
+    let newArr5 = uniqArr05([1, 2, 23, 1, "gjf", 1, 6, "gjf", "gfj"]);
+    console.log(newArr5)
+    // 一行代码去重
+    let newArr = [...new Set([1, 2, 23, 1, "gjf", 1, 6, "gjf", "gfj"])]
+    console.log(newArr);
+    // const n = Array.from.call(new Set(this))
   </script>
 </body>
 

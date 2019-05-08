@@ -820,13 +820,13 @@
     // 验证邮箱格式是否正确： xing.org1@outlook.com / 702004176@qq.com / 1515235252@163.com
     /* 规律研究：@符号前边有1到无穷个字符，⚠️是字符，不是光有字母，也就是数字和符号也可以，比如我第一个例子的xing.org就可以有.。其他两个例子就是数字了，然后@后边多个字符，再之后是.，.之后是com或其他字符 */
     var reg = /^[\s\S]+@[\w]+\.[\w]+$/g;
+    var reg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/;// 每日一题答案
     var str1 = 'xing.org1@outlook.com'
     var str2 = '702004176@qq.com'
     var str3 = '1515235252@163.com'
     console.log(str1.match(reg));
     console.log(str2.match(reg));
     console.log(str3.match(reg));
-
 
     // 匹配源代码中的链接：
     /* 这个不会，直接摘抄
