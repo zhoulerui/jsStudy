@@ -114,8 +114,45 @@
     obj.fun(x,y);
     console.log('作用域、闭包问题',obj.x,x);
     window.onload = function(){
-      
+
     }
+    
+    // 老师，我想问一下今天的这个题目，既然是闭包，为什么打分号和打点不一样呢? 打分号执行了一个函数，再执行下一个是，前面的那个为什么没影响后面的这个
+    //  - 打分号后重开一个函数,不同的函数之间有自己的作用域，不相互影响。但是.号是链式调用，还是用同一个作用域的
+    // 但是这个为什么还是用上一个执行完了的函数的执行期上下文
+    function fun(n,o){//n=0,o=unde.//n=m=1,o=n=0 //n=m=2,o=n=0 //n=m=3,o=n=0
+      console.log('--',o);
+      return {
+        fun: function(m){//m=1,n=闭包0 //m=2,n=闭包0 //m=3,n=闭包0
+          return fun(m,n);//坑在这里又调了fun(),还是全局的fun。问题是外层fun里n都变成2了，这里闭包的为啥还是0
+        }
+      }
+    }
+    var a = fun(0);//闭包保留的n=0,o=unde.
+    console.log(a);
+    a.fun(1);
+    a.fun(2);
+    a.fun(3);
+    /* // 这样写和下边b的链式调用一致，但是分号和.号完全不一样的效果，究竟是以为什么？没想明白
+    var a1 = a.fun(1);
+    var a2 = a1.fun(2);
+    console.log(a,a1,a2)
+    var a3 = a2.fun(3); */
+    function bibao(){
+      var num = 100;
+      function b(){
+        num++;
+        console.log(num);
+
+      }
+      return b;
+    }
+    var demo = bibao();
+    demo();
+    demo();
+
+
+    
   </script>
 </body>
 
