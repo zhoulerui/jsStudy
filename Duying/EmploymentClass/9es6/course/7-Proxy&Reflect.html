@@ -72,17 +72,18 @@
         // target[key] = value;
         Reflect.set(target, key, value);
       },
-      has(target,key){
-        console.log('has: ',key, key.indexOf('__'));
+      has(target, key) {
+        console.log('has: ', key, key.indexOf('__'));
         // return key in target;
         return key.indexOf('__') == 0 ? false : key in target;
         //如果不为-1表明要查的参数名的开头有带下划线
       },
-      deleteProperty(target,key){
-        console.log('deleteProperty: 想要删除？',target,key);
-        return typeof target[key] === 'object' ? false : (delete target[key] , true);
+      deleteProperty(target, key) {
+        console.log('deleteProperty: 想要删除？', target, key);
+        return typeof target[key] === 'object' ? false : (delete target[key], true);
       }
     });
+    console.log('！！访问源对象', obj.name)
     console.log('has、deleteProperty')
     /* has 、deleteProperty*/
     // 删除原始值类型属性
@@ -92,11 +93,12 @@
     delete getProxy.hobby;
     console.log(getProxy.hobby);
 
-    console.log('name' in getProxy);// 注意属性名用引号
-    console.log('__a' in getProxy);// 注意属性名用引号
+    console.log('name' in getProxy); // 注意属性名用引号
+    console.log('__a' in getProxy); // 注意属性名用引号
     console.log('get、set')
     console.log(getProxy.name)
     getProxy.name = 'xing.org1^'
+    console.log('！！访问源对象', obj.name)
     console.log(getProxy.name)
     console.log(getProxy.age)
     console.log(getProxy.defineKey);
@@ -131,8 +133,9 @@
     };
     console.log('=====递归递归=====')
     var rstObj = {};
+
     function diguiProxy(oldObj) {
-      console.log(1,oldObj)
+      console.log(1, oldObj)
       var objProxy = {};
       for (const key in oldObj) {
         if (oldObj.hasOwnProperty(key)) {
@@ -141,25 +144,25 @@
             var rst = diguiProxy(oldObj[key]);
             console.log(rst)
             objProxy[key] = rst;
-          }else{
+          } else {
             objProxy[key] = oldObj[key]
           }
         }
       };
-      console.log(2,objProxy);
+      console.log(2, objProxy);
       return new Proxy(oldObj, {
         get(target, key, receiver) {
-          console.log('get ',key)
+          console.log('get ', key)
           return Reflect.get(target, key);
         },
         set(target, key, value, receiver) {
-          console.log('set ',key)
+          console.log('set ', key)
           Reflect.set(target, key, value);
         }
       });
     }
     var test = diguiProxy(obj2);
-    console.log('----试验----',rstObj)
+    console.log('----试验----', rstObj)
     console.log(test.eduExpe.primary.teacher);
     test.eduExpe.primary.teacher = '我的老师是个好老师'
     console.log(test.eduExpe.primary.teacher);
@@ -170,22 +173,88 @@
   <script>
     /* 代理數組 */
     console.log('--代理數組--')
-    var targetArr = [1,true,'ghah',undefined,null,3];
-    var proxyArr = new Proxy(targetArr,{
-      get(a,b,c){
-        console.log('get arr: ',a,b,c);
+    var targetArr = [1, true, 'ghah', undefined, null, 3];
+    var proxyArr = new Proxy(targetArr, {
+      get(a, b, c) {
+        console.log('get arr: ', a, b, c);
         return 1;
       },
-      set(a,b,c,d){
-        console.log('set arr: ',a,b,c,d);
+      set(a, b, c, d) {
+        console.log('set arr: ', a, b, c, d);
       }
     });
     console.log(proxyArr[3])
-    proxyArr[2] = false;
+    console.log(proxyArr[2] = false);
     // proxyArr.push(12)
   </script>
 
-
+  <script>
+    console.log('代理后访问源对象会有什么表现？没有任何经过get和set的表现，毕竟代理不是加在源对象上的。')
+    console.log('但是代理对象和源对象是映射的，在代理对象上新增的值，也会加到源对象上。所以我怀疑vue中是把data函数中return的那个对象给代理了。')
+    var target = {
+      name: '源对象'
+    }
+    var handler = {
+      get(oldObj, key) {
+        console.log('get: ', oldObj, key);
+        return Reflect.get(oldObj, key);
+      },
+      set(oldObj, key, val) {
+        console.log('set: ', oldObj, key, val,Reflect.set(oldObj, key, val))
+        return Reflect.set(oldObj, key, val);
+      }
+    }
+    console.log(target.name)
+    var proxyO = new Proxy(target, handler);
+    console.log(target.name)
+    console.log(proxyO.name)
+    proxyO.newName = '代理对象上新增值';
+    console.log(target.newName);
+  </script>
+  <script>
+    // Object.create,所以有时候通过这个方法实现原型链继承。如果第一个参数和Proxy构造函数的实例化对象挂钩，那就实现了原型链拦截
+    var obj2 = Object.create({
+      a: 1
+    }, {
+      one: {
+        value: 'haha'
+      },
+      two: {
+        value: 'writable',
+        writable: true
+      }
+    });
+    console.log(obj2);
+  </script>
+  <script>
+    // 代理函数
+    var handler = {
+      get: function (target, name) {
+        console.log('函数get')
+        if (name === 'prototype') {
+          return Object.prototype;
+        }
+        return 'Hello, ' + name;
+      },
+      apply: function (target, thisBinding, args) {
+        console.log('调用函数，会执行apply？？？！')
+        return args[0];
+      },
+      construct: function (target, args) {
+        console.log('new会经过 - 函数construct')
+        return {
+          value: args[1]
+        };
+      }
+    };
+    var fproxy = new Proxy(function (x, y) {
+      return x + y;
+    }, handler);
+    console.log(fproxy(1, 2)) // 1，而不是x+y=3，因为apply那里拦截了
+    console.log(new fproxy(1, 2)) // {value: 2}，正常应该是一个空对象，结果也被拦截了
+    console.log(fproxy.prototype === Object.prototype) // true，获取函数对象上的属性，被get拦截
+    console.log(fproxy.foo === "Hello, foo") // true
+  </script>
 
   <script type="text/html" id="js_temp">
     <div>

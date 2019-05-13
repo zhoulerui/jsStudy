@@ -28,7 +28,7 @@
 </head>
 
 <body>
-  <div class="borderTop">
+  <div class="borderTop" id="opacity">
     border-radius实现曲线效果
   </div>
   <h1>class选择器not</h1>
@@ -36,7 +36,17 @@
   <a href="http://www.baidu.com" target="_self">点击在自身页面打开目标地址</a>
   <a href="#markEare" target="_self">点击在自身页面打开锚点</a>
   <div id="markEare">目标锚点</div>
+  <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
   <script>
+    opacity.style.opacity = '0.3';
+    var promptVal = parseInt(window.prompt('tian'))//Window大写就报错了，Window当变量用了，js严格区分大小写的。
+    // var promptVal = parseInt(window.prompt('tian'))
+    console.log(promptVal)
+
+    // 20190511引号里边可以加多个class吗？可以，要用逗号隔开
+    $("div, p").click(function(){
+      console.log('多个元素绑定click')
+    });
     // 行参与实参映射 - 对应的形参和实参值个数不匹配时，多余位置的数将不再映射
     function mapDemo(a, b) {
       console.log("长度为" + (arguments.length == 1 ? "1,对应的形参和实参值个数不匹配" :
