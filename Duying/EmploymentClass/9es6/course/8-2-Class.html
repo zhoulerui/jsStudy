@@ -16,9 +16,28 @@
     </li>
   </ul>
   <script>
-    class Plane{}
-    console.log(Plane);
-    console.log(new Plane())
+    // 语法糖，没有改变es5函数的本质，但是更简单高效。
+    class Person{
+      constructor (name,age){
+        //es6中函数的写法,constructor创建实例化对象的私有属性
+        this.name = name;
+        this.age = age;
+      }
+      // 在Person.prototype上添加公有方法
+      eat(){
+        console.log('eat')
+        return "i'm eating";
+      }
+      // 不能添加公有属性
+      fatherName = 'guo';//这是es7的写法，不支持的浏览器会报错。虽然我mac上边的chrome没有报错，但是公司电脑的qq浏览器就报错了
+      
+    }
+    console.log(Person);
+    var person = new Person('xingorg1',12)
+    console.log(person);
+    person.eat();
+    console.log(person.fatherName)
+
   </script>
 </body>
 </html>
