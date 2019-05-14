@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-12 21:18:38 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-24 22:21:10
+ * @Last Modified time: 2019-05-14 16:31:35
  * 仿写 - 各种方法
  */
 
@@ -10,33 +10,42 @@
 // call
 Function.prototype.gjfCall = function () {
   var rst = null,
-      obj = arguments[0] || window,
-      len = arguments.length,
-      argArr = [];
+    obj = arguments[0] || window,
+    len = arguments.length,
+    argArr = [];
   for (let i = 1; i < len; i++) {
-    argArr.push('arguments['+i+']');
+    argArr.push('arguments[' + i + ']');
     //这里也可以用reduce的思想，但是用reduce会用到Array原型上的call方法，故而放弃。
   }
   obj.newName = this;
-  console.log(argArr,argArr.join());
-  rst = eval('obj.newName('+argArr.join() + ')');
+  console.log(argArr, argArr.join());
+  rst = eval('obj.newName(' + argArr.join() + ')');
   delete obj.newName;
+  return rst;
+}
+Function.prototype.gjfCallES6 = function () {
+  var rst = null,
+    obj = arguments[0] || window,
+    args = [...arguments].slice(1);//将参数集合成数组，并去掉第一个参数（第一个参数表示调用者的this绑定目标）
+  obj[newName] = this;//将调用者存到this绑定目标这个对象上
+  rst = obj[newName]([...args]);//this绑定的本质是谁调用指向谁。所以用this绑定目标对象调用当前调用者函数。身份转换。需要想通。
+  delete obj[newName];
   return rst;
 }
 // apply
 Function.prototype.gjfApply = function (obj, array) {
   var newObj = arguments[0] || window,
-      len = arguments[1] && arguments[1].length,
-      newName = this.name,
-      argArr = [],
-      rst = null;
+    len = arguments[1] && arguments[1].length,
+    newName = this.name,
+    argArr = [],
+    rst = null;
   obj.newName = this;
-  if(arguments[1]){
-    for(var i = 0; i < len; i++){
-      argArr.push('arguments[1]['+i+']');
+  if (arguments[1]) {
+    for (var i = 0; i < len; i++) {
+      argArr.push('arguments[1][' + i + ']');
     }
-    rst = eval('obj.newName('+ argArr.join()+')');
-  }else{
+    rst = eval('obj.newName(' + argArr.join() + ')');
+  } else {
     rst = obj.newName();
   }
   delete obj.newName;
@@ -55,12 +64,28 @@ Function.prototype.gjfBind = function (target) {
   f.prototype = new temp();
   return f;
 }
+/* Object的各种方法仿写 */
+// toString
+Object.prototype.toString = function (q) {
+  console.log(q)
+  var type = this.constructor; //直接这么写，undefined或null时this指向window，这是call的问题。当call第一个参数是undefined\null\空时，this在非严格模式走默认指向window
+  // 第一个参数被call拿走当函数调用者了。难道要重新封装call吗？
+  
+  // if(arguments[0] === undefined){//undefined == null,所以这里需要全等
+  //   return `[object Undefined]`;
+  // }else if(arguments[0] === null){
+  //   return `[object Null]`;
+  // }else{
+    return `[object ${type.name}]`;
+  // }
+}
+
 /* Array的各种方法仿写 */
 /* 新增方法 */
-Array.prototype.flatten = function(){
-  return this.reduce((pre,cur)=>{
+Array.prototype.flatten = function () {
+  return this.reduce((pre, cur) => {
     return Object.prototype.toString.call(cur) === '[object Array]' ? pre.concat(cur.flatten()) : pre.concat(cur);
-  },[]);
+  }, []);
 }
 /* 重写方法 */
 // push
