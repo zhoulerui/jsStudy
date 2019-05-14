@@ -18,6 +18,15 @@
         <p>静态属性是放到函数上、不是放到原型上。</p>
     </li>
   </ul>
+  <h1>查漏补缺</h1>
+  <ul>
+    <li>es5中生成实例化对象用new 构造函数()，
+      <p>缺点是和面向对象语言（Java、c++）差别太大，所以有了语法糖</p>
+      es6用class(类的概念)，让对象原型的写法更加清晰、更像面向对象编程的语法</li>
+      <p>es6中construct构造方法对应es5中构造函数</p>
+      <li>写法注意，定义“类”的方法的时候，前面不需要加上function这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</li>
+      <li>事实上，类的所有方法都定义在类的prototype属性上面</li>
+  </ul>
   <script>
     function Kuozhan(a,b){
       [a,b] = [b,a];//一行代码翻转a和b的值
@@ -48,6 +57,13 @@
         this.name = name;
         this.age = age;
         var myVal = '这才是真正的私有属性？';
+        this.siyouFun = function(){
+          console.log('siyouFun')
+          return '实例化私有方法'
+        }
+        /* return {返回一个对象，new 构造函数后的实例化对象就是这个，同es5中构造函数的表现
+          a: 1
+        } */
       }
       // 在Person.prototype上添加公有方法
       eat(){
@@ -58,10 +74,12 @@
       // fatherName = 'guo';//这是es7的写法，不支持的浏览器会报错。虽然我mac上边的chrome没有报错，但是公司电脑的qq浏览器就报错了
       
     }
+
     console.log(Person);
     var person = new Person('xingorg1',12)
     console.log(person);
-    person.eat();
+    person.siyouFun();//调用私有方法
+    person.eat();//调用原型方法，等同Person.prototype.eat
     console.log(person.fatherName)
     console.log(Person.address())
 
