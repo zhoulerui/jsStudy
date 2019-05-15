@@ -68,12 +68,15 @@
       // 在Person.prototype上添加公有方法
       eat(){
         console.log('eat')
+        console.log(this.name)
         return "i'm eating";
       }
       // 不能添加公有属性
       // fatherName = 'guo';//这是es7的写法，不支持的浏览器会报错。虽然我mac上边的chrome没有报错，但是公司电脑的qq浏览器就报错了
       
     }
+    // 静态属性只能在外边添加
+    Person.prop = '我是静态属性';
 
     console.log(Person);
     var person = new Person('xingorg1',12)
@@ -89,14 +92,33 @@
         this.hobby = hobby;
       }
       sing(){
+        var fun = super.constructor;//super当对象用在普通函数中，指父类的原型对象。这里调原型上的constructor方法
+        console.log('super当对象用在普通函数中，指父类的原型对象',new fun());//在子类中构造父类，得到父类实例化对象
+        console.log(super.eat(),'子类中用super调用父类原型上的方法，方法里的this指向子类实例');//调原型上的其他方法
+        // console.log(new super.constructor());//直接这么写报错
+        console.log(new (super.constructor)());//应该是优先级的问题，我们用小括号提高下优先级
         console.log("i can sing");
-        return 'sing'
+        super.aaa = 'super到底是父类原型还是子类实例？——子类实例，因为aaa加到了子类Man的实例对象man上了';
+        console.log(this.aaa === man.aaa)
+        // console.log(super);//单独打印super报错
+        return 'sing';
       }
     }
     var man = new Man('xiao ming','sleep');
     console.log(man);
-
+    man.sing()
     // 
+    class woMan extends Person{
+      constructor(hobby){
+        //  用了extends没用super会报错？
+        super();
+        this.hobby = hobby;
+        super.aaa = 'super到底是父类原型还是子类实例？';
+        // super写到第二行行吗
+        // super();//不行，报错和没写一样，这是因为es6中继承机制不同，先将父类的实例和方法加到this上，再处理子类的。
+      }
+    }
+    let woman = new woMan('eat')
 
   </script>
 </body>
