@@ -35,13 +35,14 @@
   <p>cs3选择器not - color继承</p>
   <a href="http://www.baidu.com" target="_self">点击在自身页面打开目标地址</a>
   <a href="#markEare" target="_self">点击在自身页面打开锚点</a>
+  <input type="text" placeholder="聚焦后文字会上下移动？">
   <div id="markEare">目标锚点</div>
   <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
   <script>
-    opacity.style.opacity = '0.3';
-    var promptVal = parseInt(window.prompt('tian'))//Window大写就报错了，Window当变量用了，js严格区分大小写的。
-    // var promptVal = parseInt(window.prompt('tian'))
-    console.log(promptVal)
+    opacity.style.opacity = '.83';//opacity的属性值填字符串
+    // var promptVal = parseInt(window.prompt('tian'))//Window大写就报错了，Window当变量用了，js严格区分大小写的。
+    // // var promptVal = parseInt(window.prompt('tian'))
+    // console.log(promptVal)
 
     // 20190511引号里边可以加多个class吗？可以，要用逗号隔开
     $("div, p").click(function(){
@@ -161,8 +162,22 @@
     demo();
     demo();
 
-
-    
+    function aoObj(){
+      var arr = [],
+          ff = function(num){console.log(num)};
+      for(var i = 0; i< 10; i++){
+        ff();
+        (function(j){
+          arr[j] = function(){
+            console.log( '闭包索引 = ' + j);
+          }
+        })(i);
+      }
+      console.log(arr[3]());
+      console.log(arr[8]());
+      return 'ao对象中有立即执行函数，那ao对象长啥样测试'
+    }
+    aoObj()
   </script>
 </body>
 

@@ -18,5 +18,41 @@
       </li>
     </ul>
   </div>
+  <script>
+    const { log } = console;
+  </script>
+  <script>
+    /* ES6 - class */
+    class Person{
+      constructor(name){
+        this.name = name;
+      }
+      eat(){
+        log('eat function');
+      }
+    }
+    Person.prototype.lastName = 'Guo';//这样添加在原型上的属性是可以枚举的
+    var person = new Person('class');
+    // Person('class');//class constructor Person cannot be invoked without "new"
+
+    log(person);
+
+  </script>
+  <script>
+    /* ES5 - 构造函数 */
+    (function(){
+      function Person(name){
+        this.name = name;
+      }
+      Person.prototype.lastName = 'Guo';//这样添加在原型上的属性是可以枚举的
+      Person.prototype.eat = function(){//这样添加在原型上的方法是可以枚举的
+        log('eat function');
+      }
+      var person = new Person('构造函数');
+      Person('构造函数');
+
+      log(person)
+    }());
+  </script>
 </body>
 </html>

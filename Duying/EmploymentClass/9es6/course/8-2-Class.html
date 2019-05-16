@@ -50,6 +50,7 @@
       static address(){
         return 'china';
       }
+      // 静态属性定义
       // static address = 'china'; //es7的写法，es6不支持这么写
       // 私有属性定义
       constructor (name,age=20){
@@ -80,6 +81,7 @@
         return "i'm eating";
       }
       // 不能添加公有属性
+      // 在constructor里边会有一个fatherName属性
       // fatherName = 'guo';//这是es7的写法，不支持的浏览器会报错。虽然我mac上边的chrome没有报错，但是公司电脑的qq浏览器就报错了
     }
     // 静态属性只能在外边添加
