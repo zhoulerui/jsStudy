@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>class</title>
 </head>
+
 <body>
   <h1>
     class
   </h1>
   <ul>
     <li>
-        总结：
-        <p>必须用new来执行，否则报错</p>
-        <p>枚举Person原型上的属性，class定义构造函数的原型的属性都是浅粉色的，不能枚举</p>
-        <p>静态属性是放到函数上、不是放到原型上。</p>
+      总结：
+      <p>必须用new来执行，否则报错</p>
+      <p>枚举Person原型上的属性，class定义构造函数的原型的属性都是浅粉色的，不能枚举</p>
+      <p>静态属性是放到函数上、不是放到原型上。</p>
     </li>
   </ul>
   <h1>查漏补缺</h1>
@@ -23,42 +25,42 @@
     <li>es5中生成实例化对象用new 构造函数()，
       <p>缺点是和面向对象语言（Java、c++）差别太大，所以有了语法糖</p>
       es6用class(类的概念)，让对象原型的写法更加清晰、更像面向对象编程的语法</li>
-      <p>es6中construct构造方法对应es5中构造函数</p>
-      <li>写法注意，定义“类”的方法的时候，前面不需要加上function这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</li>
-      <li>事实上，类的所有方法都定义在类的prototype属性上面</li>
+    <p>es6中construct构造方法对应es5中构造函数</p>
+    <li>写法注意，定义“类”的方法的时候，前面不需要加上function这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。</li>
+    <li>事实上，类的所有方法都定义在类的prototype属性上面</li>
   </ul>
   <script>
-    function Kuozhan(a,b){
-      [a,b] = [b,a];//一行代码翻转a和b的值
-      console.log(a,b);
-      this.a = 'a'+a;
-      this.b = 'b'+b;
+    function Kuozhan(a, b) {
+      [a, b] = [b, a]; //一行代码翻转a和b的值
+      console.log(a, b);
+      this.a = 'a' + a;
+      this.b = 'b' + b;
     }
     Kuozhan.prototype = {
-      name : '我们能枚举',
-      shuxing : '可枚举'
+      name: '我们能枚举',
+      shuxing: '可枚举'
     }
-    var kuozhan = new Kuozhan(1,2);
+    var kuozhan = new Kuozhan(1, 2);
     for (const key in kuozhan) {
       // if (kuozhan.hasOwnProperty(key)) {
-        console.log( kuozhan[key]);//如果不用hasOwnProperty过滤，是可以枚举prototype上的属性的
+      console.log(kuozhan[key]); //如果不用hasOwnProperty过滤，是可以枚举prototype上的属性的
       // }
     }
     // 语法糖，没有改变es5函数的本质，但是更简单高效。
-    class Person{
+    class Person {
       // 静态属性定义 - 必须经过方法包装，返回一个属性
-      static address(){
+      static address() {
         return 'china';
       }
       // 静态属性定义
       // static address = 'china'; //es7的写法，es6不支持这么写
       // 私有属性定义
-      constructor (name,age=20){
+      constructor(name, age = 20) {
         //es6中函数的写法,constructor创建实例化对象的私有属性
         this.name = name;
         this.age = age;
         var myVal = '这才是真正的私有属性？';
-        this.siyouFun = function(){
+        this.siyouFun = function () {
           console.log('siyouFun')
           return '实例化私有方法'
         }
@@ -67,15 +69,15 @@
         } */
       }
       // 存值函数、取值函数， getter和setter拦截
-      get proxy(){
+      get proxy() {
         return '拦截你获取proxy属性，永远返回固定字符串'
       }
-      set proxy(paramsMust){//必须有一个参数，不然报错
+      set proxy(paramsMust) { //必须有一个参数，不然报错
         console.log('想要重置吗？没门！');
         return false;
       }
       // 在Person.prototype上添加公有方法
-      eat(){
+      eat() {
         console.log('eat')
         console.log(this.name)
         return "i'm eating";
@@ -88,45 +90,45 @@
     Person.prop = '我是静态属性';
 
     console.log(Person);
-    var person = new Person('xingorg1',12)
+    var person = new Person('xingorg1', 12)
     console.log(person);
-    person.siyouFun();//调用私有方法
-    console.log(person.proxy);//获取getter定义的属性
+    person.siyouFun(); //调用私有方法
+    console.log(person.proxy); //获取getter定义的属性
     person.proxy = '我要通过setter修改proxy';
     console.log(person.proxy)
-    person.eat();//调用原型方法，等同Person.prototype.eat
+    person.eat(); //调用原型方法，等同Person.prototype.eat
     console.log(person.fatherName)
     console.log(Person.address())
 
-    class Man extends Person{//继承Person身上的静态属性、Person.prototype也被当做man.__proto__（即Man.prototype）的__proto__了。说明Man.prototype是Person构造出来的对象
-      constructor(name,hobby){
+    class Man extends Person { //继承Person身上的静态属性、Person.prototype也被当做man.__proto__（即Man.prototype）的__proto__了。说明Man.prototype是Person构造出来的对象
+      constructor(name, hobby) {
         super(name); // === Person.call(this),继承实例化对象的私有属性
         this.hobby = hobby;
       }
-      sing(){
-        var fun = super.constructor;//super当对象用在普通函数中，指父类的原型对象。这里调原型上的constructor方法
-        console.log('super当对象用在普通函数中，指父类的原型对象',new fun());//在子类中构造父类，得到父类实例化对象
-        console.log(super.eat(),'子类中用super调用父类原型上的方法，方法里的this指向子类实例');//调原型上的其他方法
+      sing() {
+        var fun = super.constructor; //super当对象用在普通函数中，指父类的原型对象。这里调原型上的constructor方法
+        console.log('super当对象用在普通函数中，指父类的原型对象', new fun()); //在子类中构造父类，得到父类实例化对象
+        console.log(super.eat(), '子类中用super调用父类原型上的方法，方法里的this指向子类实例'); //调原型上的其他方法
         // console.log(new super.constructor());//直接这么写报错
-        console.log(new (super.constructor)());//应该是优先级的问题，我们用小括号提高下优先级
-        console.log("i can sing");
+        console.log(new(super.constructor)()); //应该是优先级的问题，我们用小括号提高下优先级
+        console.log("çi can sing");
         super.aaa = 'super到底是父类原型还是子类实例？——子类实例，因为aaa加到了子类Man的实例对象man上了';
         console.log(this.aaa === man.aaa)
         // console.log(super);//单独打印super报错
         return 'sing';
       }
-      static sonAddress(str){
-        console.log(str+'中调用父类的静态方法',super.address());//子类中调用父类的静态方法
+      static sonAddress(str) {
+        console.log(str + '中调用父类的静态方法', super.address()); //子类中调用父类的静态方法
         return '子类是完全继承父类啊，不仅原型，连他爸爸自己的私房钱也不放过'
       }
     }
     Man.sonAddress('子类');
-    var man = new Man('xiao ming','sleep');
+    var man = new Man('xiao ming', 'sleep');
     console.log(man);
     man.sing()
     // 
-    class woMan extends Person{
-      constructor(hobby){
+    class woMan extends Person {
+      constructor(hobby) {
         //  用了extends没用super会报错？
         super();
         this.hobby = hobby;
@@ -136,7 +138,14 @@
       }
     }
     let woman = new woMan('eat')
+    
+    /* extends */
+    const {log} = console;
+    class Extend extends Object {}
 
+    log(Extend.__proto__ === Object) // true
+    log(Extend.prototype.__proto__ === Object.prototype) // true
   </script>
 </body>
+
 </html>
