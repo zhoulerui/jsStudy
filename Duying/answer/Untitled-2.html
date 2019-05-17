@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>点击改变图片</title>
+</head>
+<script>
+  window.onload = function () {
+    var img1 = document.getElementById('img1');
+    var b = 1;
+    var b = 2;
+    img1.onclick = function () {
+      if (b) {
+        img1.src = "https://img01.sogoucdn.com/v2/thumb/resize/w/333.3333333333333/h/250/crop/w/333.3333333333333/h/250/xy/center?t=2&appid=200549&url=https%3A%2F%2Fimg04.sogoucdn.com%2Fapp%2Fa%2F100520091%2F20190517094839";
+        b--;
+      } else {
+        img1.src = "https://ww4.sinaimg.cn/thumb150/6942e234gy1g33atg3c9kj20hs0brqi0.jpg";
+        b = 1;
+      }
+    }
+  };
+</script>
+
+<body>
+
+  <img id='img1' src="https://img01.sogoucdn.com/v2/thumb/resize/w/333.3333333333333/h/250/crop/w/333.3333333333333/h/250/xy/center?t=2&appid=200549&url=https%3A%2F%2Fimg04.sogoucdn.com%2Fapp%2Fa%2F100520091%2F20190517094839" />
+
+</body>
+
+</html>

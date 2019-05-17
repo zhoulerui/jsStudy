@@ -177,7 +177,22 @@
       console.log(arr[8]());
       return 'ao对象中有立即执行函数，那ao对象长啥样测试'
     }
-    aoObj()
+    aoObj();
+
+    // 没有var 会找父作用域？而不是直接找全局？
+    var count = 10;
+    function add(){
+      var count = 1;
+      return function(){
+        count+=1;
+        console.log(count);
+      }
+    }
+    var bibao = add();
+    bibao();
+    bibao();
+    
+
   </script>
 </body>
 

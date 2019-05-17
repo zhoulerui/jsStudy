@@ -2,8 +2,13 @@
  * @Author: @Guojufeng 
  * @Date: 2019-05-04 16:37:16 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-16 10:26:19
+ * @Last Modified time: 2019-05-17 09:28:48
  */
+/* symbol */
+var a = {},b = Symbol('123'),c=Symbol('123');
+a[b] = 'b';
+a[c] = 'c';
+console.log(a)
 /* 箭头函数 */
 // this的实际应用：
 function ThisFun(){
