@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Map练习</title>
+</head>
+
+<body>
+  <h1>Map练习</h1>
+  <ul>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+    <li><a href=""></a></li>
+  </ul>
+  <script>
+    const {
+      log
+    } = console;
+    let mp1 = new Map();
+    log(mp1);
+    let mp2 = new Map([
+      ['name', 'xing.org1'],
+      ['age', 18],
+      ['call', 110]
+    ]); //放一个数组，数组里嵌套二维数组，放[key,value]的形式。
+    log(mp2);
+    let st1 = new Set([1,2]);
+    let mp3 = new Map([
+      [NaN, NaN],
+      [null, 'xing.org1'],
+      [undefined, null],
+      [true, undefined],
+      [{}, {}],
+      [[], []],
+      [function a(){}, `放函数`],
+      [st1, `放set${st1}`]
+    ]);
+    console.log(mp3);
+
+    // api
+    mp3.set(3,'新增值')
+    log(mp3.get(NaN))
+    log(mp3.get(3))
+    log(mp3.has(3))
+
+    mp3.delete(3);
+
+    mp3.set({},'空对象');
+    log(mp3.get({})) // undefined,因为前后两个对象不是同一个堆内存地址
+
+    var obj1 = {name: '存储对象变量才能get'}
+    mp3.set(obj1,obj1);
+    log(mp3.get(obj1))
+
+    log(mp3.size)//size属性
+
+    mp3.forEach((a,b,c)=>{
+      // console.log(a,b,c);//属性值value、属性key、实例化对象自身mp3
+    });
+
+    log(mp3.keys());
+
+    log(mp3.entries())
+    log(mp3)
+
+    for(var item of mp3){
+      log(item);
+    }
+    
+        log('-----for of 遍历entries---')
+        for(var item of mp3.entries()){
+          log(item);
+        }
+    log('for of 遍历 keys-----')
+    for(var item of mp3.keys()){
+      log(item);
+    }
+
+    
+  </script>
+</body>
+
+</html>

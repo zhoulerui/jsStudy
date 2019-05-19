@@ -36,22 +36,22 @@
   <a href="http://www.baidu.com" target="_self">点击在自身页面打开目标地址</a>
   <a href="#markEare" target="_self">点击在自身页面打开锚点</a>
   <input type="text" placeholder="聚焦后文字会上下移动？">
-  <div id="markEare">目标锚点</div>
+  <div id="markEare" style="display:none">目标锚点</div>
   <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
   <script>
-    opacity.style.opacity = '.83';//opacity的属性值填字符串
+    opacity.style.opacity = '.83'; //opacity的属性值填字符串
     // var promptVal = parseInt(window.prompt('tian'))//Window大写就报错了，Window当变量用了，js严格区分大小写的。
     // // var promptVal = parseInt(window.prompt('tian'))
     // console.log(promptVal)
 
     // 20190511引号里边可以加多个class吗？可以，要用逗号隔开
-    $("div, p").click(function(){
+    $("div, p").click(function () {
       console.log('多个元素绑定click')
     });
     // 行参与实参映射 - 对应的形参和实参值个数不匹配时，多余位置的数将不再映射
     function mapDemo(a, b) {
       console.log("长度为" + (arguments.length == 1 ? "1,对应的形参和实参值个数不匹配" :
-      "2,形参实参个数匹配,将要双宿双飞")); //arguments长度为1，但行参列表的长度为2.多余的第二位的参数将不再映射。
+        "2,形参实参个数匹配,将要双宿双飞")); //arguments长度为1，但行参列表的长度为2.多余的第二位的参数将不再映射。
       console.log(b, arguments[1]); //undefined,undefined;
       arguments[1] = 2;
       console.log(b, arguments[1]); //undefined,2
@@ -112,34 +112,35 @@
     // 
     let x = 1;
     let y = 2;
-    function show(){
+
+    function show() {
       var x = 3;
       return {
         x: x,
-        fun: function(a,b){
+        fun: function (a, b) {
           x = a + b;
         }
       }
     }
     var obj = show();
-    obj.fun(x,y);
-    console.log('作用域、闭包问题',obj.x,x);
-    window.onload = function(){
+    obj.fun(x, y);
+    console.log('作用域、闭包问题', obj.x, x);
+    window.onload = function () {
 
     }
-    
+
     // 老师，我想问一下今天的这个题目，既然是闭包，为什么打分号和打点不一样呢? 打分号执行了一个函数，再执行下一个是，前面的那个为什么没影响后面的这个
     //  - 打分号后重开一个函数,不同的函数之间有自己的作用域，不相互影响。但是.号是链式调用，还是用同一个作用域的
     // 但是这个为什么还是用上一个执行完了的函数的执行期上下文
-    function fun(n,o){//n=0,o=unde.//n=m=1,o=n=0 //n=m=2,o=n=0 //n=m=3,o=n=0
-      console.log('--',o);
+    function fun(n, o) { //n=0,o=unde.//n=m=1,o=n=0 //n=m=2,o=n=0 //n=m=3,o=n=0
+      console.log('--', o);
       return {
-        fun: function(m){//m=1,n=闭包0 //m=2,n=闭包0 //m=3,n=闭包0
-          return fun(m,n);//坑在这里又调了fun(),还是全局的fun。问题是外层fun里n都变成2了，这里闭包的为啥还是0
+        fun: function (m) { //m=1,n=闭包0 //m=2,n=闭包0 //m=3,n=闭包0
+          return fun(m, n); //坑在这里又调了fun(),还是全局的fun。问题是外层fun里n都变成2了，这里闭包的为啥还是0
         }
       }
     }
-    var a = fun(0);//闭包保留的n=0,o=unde.
+    var a = fun(0); //闭包保留的n=0,o=unde.
     console.log(a);
     a.fun(1);
     a.fun(2);
@@ -149,9 +150,10 @@
     var a2 = a1.fun(2);
     console.log(a,a1,a2)
     var a3 = a2.fun(3); */
-    function bibao(){
+    function bibao() {
       var num = 100;
-      function b(){
+
+      function b() {
         num++;
         console.log(num);
 
@@ -162,14 +164,16 @@
     demo();
     demo();
 
-    function aoObj(){
+    function aoObj() {
       var arr = [],
-          ff = function(num){console.log(num)};
-      for(var i = 0; i< 10; i++){
+        ff = function (num) {
+          console.log(num)
+        };
+      for (var i = 0; i < 10; i++) {
         ff();
-        (function(j){
-          arr[j] = function(){
-            console.log( '闭包索引 = ' + j);
+        (function (j) {
+          arr[j] = function () {
+            console.log('闭包索引 = ' + j);
           }
         })(i);
       }
@@ -181,18 +185,28 @@
 
     // 没有var 会找父作用域？而不是直接找全局？
     var count = 10;
-    function add(){
+
+    function add() {
       var count = 1;
-      return function(){
-        count+=1;
+      return function () {
+        count += 1;
         console.log(count);
       }
     }
     var bibao = add();
     bibao();
     bibao();
-    
 
+
+    // ccc
+    var mul = 1;
+    // var n = parseInt(window.prompt('input'));
+    var n = 4;
+    for (let i = 0; i < n; i++) {
+      mul *= 2;
+      console.log('---',mul);
+      document.write(mul + " ")
+    }
   </script>
 </body>
 

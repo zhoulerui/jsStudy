@@ -208,8 +208,15 @@ var xingorg1Utils = {
     if (Object.prototype.toString.call(arr) == '[object Array]') {
       var arr = Array.prototype.slice.call(arr),
         obj = {},
+        tempEl = '',
         resultArr = [];
       arr.forEach(el => {
+        if(Object.prototype.toString.call(el) === '[object Object]'){
+          // 证明这个值是一个对象，就事先将对象字符串化。而不是让他调用自己的toString
+          tempEl = JSON.stringify(el);
+        }else{
+          tempEl = el;
+        }
         if (!obj[el]) {
           obj[el] = true;
           resultArr.push(el)
