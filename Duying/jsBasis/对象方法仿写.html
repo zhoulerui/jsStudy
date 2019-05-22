@@ -35,7 +35,7 @@
       func = function () {};
     console.log(Object.prototype.toString(obj)); //对象格式
     console.log(Object.prototype.toString.call(obj)); //对象格式
-    console.log(Object.prototype.toString.call(Math)); //对象格式
+    console.log(Object.prototype.toString.call(Math)); //对象格式 - ！！应该是 "[object Math]"
     console.log(Object.prototype.toString.call(arr)); //数组格式
     console.log(Object.prototype.toString.call(str)); //字符串格式
     console.log(Object.prototype.toString.call(bool)); //布尔格式
@@ -43,9 +43,9 @@
     console.log(Object.prototype.toString.call(reg)); //正则格式
     console.log(Object.prototype.toString.call(date)); //日期对象格式
     console.log(Object.prototype.toString.call(func)); //函数格式
-    console.log(Object.prototype.toString.call(undef)); //undefined格式
-    console.log(Object.prototype.toString.call(nul)); //null格式
-    console.log(Object.prototype.toString.call()); //不传参时
+    console.log(Object.prototype.toString.call(undef)); //undefined格式 -！！ 应该是 "[object Undefined]"
+    console.log(Object.prototype.toString.call(nul)); //null格式 -！！ 应该是 "[object Null]"
+    console.log(Object.prototype.toString.call()); //不传参时 -！！ 应该是 "[object Undefined]"
   </script>
 </body>
 

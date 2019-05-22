@@ -7,9 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>may</title>
   <style>
-    :not(p) {
-      color: green;
-    }
+    
 
     #markEare {
       margin-top: 1200px;
@@ -24,6 +22,33 @@
       border-bottom-right-radius: 50% 12%;
       overflow: hidden;
     }
+    /* 伪类 权重值测试 */
+    .test li.cls {
+      color: #00f7f9;
+    }
+    li:hover {
+      color: black;
+    }
+    li:not(p) {
+      color: green;
+    }
+    .test .cls.cls2:hover{
+      color: #f547ff;
+    }
+    .test .cls:hover{
+      color: blue;
+    }
+
+    .test li:hover{
+      color: red;
+    }
+    .right-float span{
+      float: right;
+      width: 120px;
+      height: 120px;
+      border: 1px solid tomato;
+      margin: 10px;
+    }
   </style>
 </head>
 
@@ -37,6 +62,18 @@
   <a href="#markEare" target="_self">点击在自身页面打开锚点</a>
   <input type="text" placeholder="聚焦后文字会上下移动？">
   <div id="markEare" style="display:none">目标锚点</div>
+  <div class="test">
+    <ul>
+      <li>test1</li>
+      <li class="cls cls2">test2</li>
+    </ul>
+  </div>
+  <div class="right-float">
+    <span>4</span>
+    <span>3</span>
+    <span>2</span>
+    <span>1</span>
+  </div>
   <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
   <script>
     opacity.style.opacity = '.83'; //opacity的属性值填字符串

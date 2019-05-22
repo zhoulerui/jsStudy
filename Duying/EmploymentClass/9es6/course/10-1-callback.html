@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>promise</title>
+  <title>异步与回调的问题</title>
 </head>
 
 <body>
@@ -48,18 +48,41 @@
       }
     }
     var allCb = after(3, cb);
-
+  </script>
+  <script>
+    /* 异步代码执行报错，try catch无法捕获 */
+    try {
+      setTimeout(() => {
+        try {
+          throw '异步。出错了！'
+        } catch (asyncErr) {
+          console.log(asyncErr)
+        }
+      }, 2000);
+      throw '同步。出错了！';
+    } catch (e) {
+      console.log(e, '错误被捕获~');
+    }
+  </script>
+  <script src="">
     /* 封装随心所欲的发布订阅 */
-    // var subscriber = {
-    //   times: 4,
-    //   tasks: [],
-    //   a(){
-    //     --times === 0 && this.b.apply();
-    //   },
-    //   b(){
-
-    //   }
-    // }
+    var subscriber = {
+      // 目的，对回调进行很好的管理 
+      list: [], //存储被订阅的函数
+      times: 3, //计数
+      subscribe(func) {
+        // 订阅一些函数
+        this.list.push(func);
+      },
+      fire(...args) {
+        // 触发时，调用订阅的所有函数。
+        if (--this.times === 0)
+          this.list.forEach((ele) => {
+            ele.apply(null, args); //依次触发所有函数
+          })
+      }
+    }
+    }
   </script>
 </body>
 

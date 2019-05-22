@@ -1,13 +1,13 @@
 {
   "name": "a-babelInit",
   "version": "1.0.0",
-  "description": "",
+  "description": "aaa",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "xing.org1^",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.4.4",
@@ -15,6 +15,8 @@
     "@babel/preset-env": "^7.4.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/polyfill": "^7.4.4"
   }
 }
