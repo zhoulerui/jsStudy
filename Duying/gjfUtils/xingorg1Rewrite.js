@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-12 21:18:38 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-24 00:23:29
+ * @Last Modified time: 2019-05-24 01:16:06
  * 原型方法仿写
  * 包括：Function 、Array 、 Map 、 Promise
  */
@@ -491,36 +491,78 @@ function GjfPromise(executor) {
   }
 }
 // GjfPromise 静态方法
-GjfPromise.all = function(){
-  
+// all
+GjfPromise.all = function (promiseArr) {
+  var len = promiseArr.length,
+    resValueArr = [];
+  return new GjfPromise(function (res, rej) {
+    promiseArr.forEach(function (promiseObj) {
+      if(promiseObj instanceof GjfPromise){
+        promiseObj.then(function (resValue) {
+          dealRes(resValue);
+        }, rej);//遍历过程汇总遇到一个失败，立即触发rej，原理同race了。
+      }else{
+        // 加容错处理，如果参数列表中有非promise值则直接运行res，并把这个参数直接传到输出数组
+        dealRes(promiseObj);
+      }
+      function dealRes(resValue){
+        // 如果遍历过程中，参数列表里边的其中一个promise对象触发了自己的res，我们就在then中接收并记录他的参数，顺便把完成的数量+1(那么未完成的promise对象就是 总数-1 了，所以我这里用了--len),len本来是总的数量，等于0时代表所有promise对象完成，我们就触发all后边then的成功回调。
+        resValueArr.push(resValue);
+        // 发现这么做，最后输出数组的顺序有误，原始值不是异步代码会被push到最前边。。。
+        --len === 0 && res(resValueArr);
+      }
+    });
+  });
 }
-GjfPromise.race = function(){
-  
+// race
+GjfPromise.race = function (promiseArr) {
+  // race返回promise对象。后边可以继续then调用
+  return new GjfPromise(function (res, rej) {
+    promiseArr.forEach(function (promiseObj) {
+      //遍历所有的promise对象，都绑定一个then函数，如果一个promise执行完毕就会调用这个then。相当于我们平时这样的写法：
+      /* var promise = new Promise((resv,rejt)=>{
+        resv(1); || rejt(1);
+      });
+      promise.then((data)=>{
+        log(data)
+      },(err)=>{
+        log(err);
+      })
+      上边resv or rejt不管谁调用，就会触发下边promise.then里边的对应回调。而两个函数参数对应的就是我们下边的res和rej这俩。这里有个中间媒介、代理的感觉。需要多思考一会。
+       */
+      if(promiseObj instanceof GjfPromise){
+        // 加容错处理，如果参数列表中有非promise值则直接运行res
+        promiseObj.then(res, rej);
+      }else{
+        res(promiseObj);
+      }
+    });
+  });
 }
 // GjfPromise 原型
 GjfPromise.prototype = {
-  dealReturnPromise(returnValue,resol,rejec){
-    if(returnValue instanceof GjfPromise){
+  dealReturnPromise(returnValue, resol, rejec) {
+    if (returnValue instanceof GjfPromise) {
       // 当上一个then的返回值是promise时，我们这里来调用他的then
-      returnValue.then(function(value){
+      returnValue.then(function (value) {
         resol(value);
-      },function(reason){
+      }, function (reason) {
         rejec(reason);
       });
-    }else{
+    } else {
       resol(returnValue);
     }
   },
   // then
   then(onFunfilled, onRejected) { //这俩名字是Promise规范命名
     //检查then的传参是否规范，是够是两个函数？或者只传了一个函数，或者reso传的是null？是否是空then(即reso或reje不传参时)等情况。
-    if (typeof(onFunfilled) !== 'function') {
+    if (typeof (onFunfilled) !== 'function') {
       onFunfilled = function (val) {
         // 透过去的本质，不是真正的忽视，而是你转交给我的东西，我原封不动的传到下一个中去。
         return val;
       }
     }
-    if (typeof(onRejected) !== 'function') {
+    if (typeof (onRejected) !== 'function') {
       onRejected = function (err) {
         // 透过去的本质，不是真正的忽视，而是你转交给我的东西，我原封不动的传到下一个中去。
         throw err;
@@ -536,7 +578,7 @@ GjfPromise.prototype = {
             try {
               var lashResolveValue = onFunfilled(_this.resolveValue); // 记录上一个then的返回值
               // reso(lashResolveValue); //第一个then的resove触发，拿到返回值立即调用下一个then的resolve，并传参上一个then的返回值
-              _this.dealReturnPromise(lashResolveValue,reso,reje);
+              _this.dealReturnPromise(lashResolveValue, reso, reje);
             } catch (e) {
               reje(e); //如果捕获到错误，直接出发下一个then的失败回调
             }
@@ -548,7 +590,7 @@ GjfPromise.prototype = {
             try {
               var lashRejectValue = onRejected(_this.rejectReason);
               // reso(lashRejectValue);//这里注意，即使上一个then走的是失败回调，下一个也走成功回调
-              _this.dealReturnPromise(lashRejectValue,reso,reje);
+              _this.dealReturnPromise(lashRejectValue, reso, reje);
             } catch (e) {
               reje(e);
             }
@@ -561,7 +603,7 @@ GjfPromise.prototype = {
               try {
                 var lashResolveValue = onFunfilled(_this.resolveValue);
                 // reso(lashResolveValue);
-                _this.dealReturnPromise(lashResolveValue,reso,reje);
+                _this.dealReturnPromise(lashResolveValue, reso, reje);
               } catch (e) {
                 reje(e);
               }
@@ -572,7 +614,7 @@ GjfPromise.prototype = {
               try {
                 var lashRejectValue = onRejected(_this.rejectReason);
                 // reso(lashRejectValue);//这里注意，即使上一个then走的是失败回调，下一个也走成功回调
-                _this.dealReturnPromise(lashRejectValue,reso,reje);
+                _this.dealReturnPromise(lashRejectValue, reso, reje);
               } catch (e) {
                 reje(e);
               }

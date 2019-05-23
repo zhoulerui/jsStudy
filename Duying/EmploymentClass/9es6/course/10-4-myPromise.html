@@ -133,7 +133,7 @@
       }
       a1();
     }
-    a();
+    // a();
   </script>
   <script>
     log('--------------------------------------------------------')
@@ -244,6 +244,7 @@
     function d(){
       // 静态方法 - race和all 
       var pr1 = new GjfPromise((res,rej)=>{
+        res(11);
         setTimeout(()=>{
           res(1);
         },1000);
@@ -258,8 +259,12 @@
           res(3);
         },3000);
       });
+      var pr4 = '原始值';
+        pr4 = 444;
+        pr4 = {name:12};
+        pr4 = [{name:12}];//race的参数列表中如果promise对象的参数都是异步任务，但是有一个不是promise对象而是原始或其他引用值，就会立即执行并触发then的成功回调。
       function d2(){
-        GjfPromise.race([pr1,pr2,pr3]).then((res)=>{
+        GjfPromise.race([pr1,pr2,pr3,pr4]).then((res)=>{
           log(res)
         },(rej)=>{
           log('x',rej)
@@ -267,15 +272,15 @@
       }
       d2();
       function d1(){
-        GjfPromise.all([pr1,pr2,pr3]).then((res)=>{
+        GjfPromise.all([pr1,pr2,pr3,pr4]).then((res)=>{
           log(res)
         },(rej)=>{
           log('x',rej)
         })
       }
-      // d1();
+      d1();
     }
-    // d();
+    d();
   </script>
   <script>
     function c(){
