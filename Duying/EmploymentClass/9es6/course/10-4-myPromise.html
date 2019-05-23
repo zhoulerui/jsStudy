@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>promise原理及仿写实现</title>
+</head>
+
+<body>
+  <h4>promise原理及仿写实现</h4>
+  <h4>原生promise的特色分析</h4>
+  <ul>
+    <li>
+      必须用用new调用构造函数Promise
+    </li>
+    <li>Promise调用时不传参或传参不是函数会怎样？</li>
+    <li>
+      promise也是一个状态机，触发了一个Fulfilled状态，就没法再变回Rejected状态了。反之亦然。
+      <p>并根据状态来触发相应的回调</p>
+    </li>
+    <li>
+      promise调用后，参数函数executor里边抛出错误需要捕获并传给下一个then的错误回调。
+    </li>
+    <li>
+      promise来有异步任务，then会被先调用。此时状态还是pending，所以检测then被调用了时，状态为pending时候被就把异步任务放到任务队列数组里
+    </li>
+  </ul>
+  <script>
+    const {
+      log
+    } = console;
+    // 原生promise的测试用例及特色分析
+    var pr = new Promise((res, rej) => {
+      // a // 遇到错误到then的错误回调，相当于触发rej，错误回调的参数是错误信息
+      // res('2232');
+      // rej('23')
+      setTimeout(()=>{
+        res('处理异步操作');
+      },2000);
+      return 22;
+    });
+    pr.then((data) => {
+      log('原promise - suc', data);
+    }, (err) => {
+      log('原promise - err', err);
+    });
+    /* Promise((res,rej)=>{
+      console.log('就不用new执行')
+    });
+    console.log(1, 'promise抛出错误"不"阻塞下边执行'); */
+    //不传参测试
+    // new Promise();
+  </script>
+  <script>
+    log('--------------------------------------------------------')
+  </script>
+  <script src="../../../gjfUtils/xingorg1Rewrite.js"></script>
+  <script>
+    /* // 原理模型
+    function model(func) {
+      function a(aa) {
+        console.log('aa');
+      }
+
+      function b(bb) {
+        console.log('bb');
+      }
+      func(a, b);
+    }
+    model(function (a, b) {
+      // a();
+      b();
+    }); */
+
+    // 仿写promise的测试用例
+    var pr2 = new GjfPromise((res, rej) => {
+      // log('GjfPromise立即执行');
+      // a // 遇到错误时流程走到then的错误回调，相当于触发rej，错误回调的参数是错误信息
+      // res('res-成功回调触发');//res状态触发
+      // rej('rej-失败回调');//rej状态触发
+      setTimeout(()=>{
+        res('处理异步操作');
+      },2000);
+    }); 
+    // log(pr);
+    pr2.then((data) => {
+      log('suc', data);
+    }, (err) => {
+      log('err', err);
+    });
+    /* GjfPromise((res,rej)=>{
+      log('就不用new执行');
+    });
+    console.log(2,'promise抛出错误"不"阻塞下边执行'); */
+    // 不传参测试
+    // new GjfPromise();
+  </script>
+</body>
+
+</html>

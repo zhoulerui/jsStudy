@@ -244,6 +244,54 @@
       console.log('---',mul);
       document.write(mul + " ")
     }
+
+    // this的核心是谁调用指向谁,跟他所处调用环境的this无关，因为函数有自己的执行上下文
+    // arguments上有自己的length属性,同函数上有name一样，这种关键字的面试题真的坑爹
+    var length = 10;
+    var notLength = 10;
+    function fn(){
+      console.log('this指向谁？',this.length);
+      console.log('length关键字换掉后',this.notLength);
+    }
+    var obj = {
+      length: 5,
+      notLength: 'not length',
+      mt: function(fn){
+        fn();
+        console.log(arguments);
+        console.log(arguments[0].call(obj));
+        arguments[0]();
+      }
+    }
+    obj.mt(fn,222);
+
+    // bind的二次绑定考察
+    var bindA = 10,
+      objBind = {
+        a: 'bind被绑定后，不能再通过其他方法改变this指向（new 除外）'
+      },
+      objBind1 = {
+        a: 3
+      };
+    function bindFn(a = ''){
+      console.log(a)
+      console.log('bind用法 - ',this.a);
+    }
+    var newFn = bindFn.bind(objBind);
+    var newFn1 = newFn.bind(objBind1);
+    newFn1();
+    new newFn1('new还能改变bind绑定过后的this指向');
+
+
+
+    
+    // 函数声明变成表达式后，名字无意义。
+    var f = function g(){
+      return 23;
+    }
+    console.log('函數表达式的名字',typeof g);//typeof 一个不存在的变量，得到undefined
+    console.log('函數表达式的名字 - 函数调用',typeof g());//typeof 一个不存在的变量，得到undefined
+    
   </script>
 </body>
 

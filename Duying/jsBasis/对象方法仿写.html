@@ -33,19 +33,19 @@
       undef = undefined,
       nul = null,
       func = function () {};
-    console.log(Object.prototype.toString(obj)); //对象格式
-    console.log(Object.prototype.toString.call(obj)); //对象格式
-    console.log(Object.prototype.toString.call(Math)); //对象格式 - ！！应该是 "[object Math]"
-    console.log(Object.prototype.toString.call(arr)); //数组格式
-    console.log(Object.prototype.toString.call(str)); //字符串格式
-    console.log(Object.prototype.toString.call(bool)); //布尔格式
-    console.log(Object.prototype.toString.call(num)); //数字格式
-    console.log(Object.prototype.toString.call(reg)); //正则格式
-    console.log(Object.prototype.toString.call(date)); //日期对象格式
-    console.log(Object.prototype.toString.call(func)); //函数格式
-    console.log(Object.prototype.toString.call(undef)); //undefined格式 -！！ 应该是 "[object Undefined]"
-    console.log(Object.prototype.toString.call(nul)); //null格式 -！！ 应该是 "[object Null]"
-    console.log(Object.prototype.toString.call()); //不传参时 -！！ 应该是 "[object Undefined]"
+    console.log('objct-无call \n',Object.prototype.gjfToString(obj)); //对象格式
+    console.log('objct \n',Object.prototype.gjfToString.call(obj)); //对象格式
+    console.log('Math \n',Object.prototype.gjfToString.call(Math)); //对象格式 - ！！应该是 "[object Math]"
+    console.log('array \n',Object.prototype.gjfToString.call(arr)); //数组格式
+    console.log('string \n',Object.prototype.gjfToString.call(str)); //字符串格式
+    console.log('boolean \n',Object.prototype.gjfToString.call(bool)); //布尔格式
+    console.log('number \n',Object.prototype.gjfToString.call(num)); //数字格式
+    console.log('reg \n',Object.prototype.gjfToString.call(reg)); //正则格式
+    console.log('date \n',Object.prototype.gjfToString.call(date)); //日期对象格式
+    console.log('function \n',Object.prototype.gjfToString.call(func)); //函数格式
+    console.log('undefined \n',Object.prototype.gjfToString.call(undef)); //undefined格式 -！！ 应该是 "[object Undefined]"
+    console.log('nul \n',Object.prototype.gjfToString.call(nul)); //null格式 -！！ 应该是 "[object Null]"
+    console.log('空 \n',Object.prototype.gjfToString.call()); //不传参时 -！！ 应该是 "[object Undefined]"
   </script>
 </body>
 
