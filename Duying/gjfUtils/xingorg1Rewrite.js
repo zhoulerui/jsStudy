@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-12 21:18:38 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-23 17:56:34
+ * @Last Modified time: 2019-05-23 23:34:52
  * 原型方法仿写
  * 包括：Function 、Array 、 Map 、 Promise
  */
@@ -444,49 +444,47 @@ gjfMap.prototype.clear = function () {
 /* Promise的仿写与实现 */
 function GjfPromise(executor) {
   var self = this;
-
-  this.status = 'pending';//默认一开始的状态是pending，后期一旦改变不能再改
+  this.status = 'pending'; //默认一开始的状态是pending，后期一旦改变不能再改
   this.resolveValue = null;
   this.rejectReason = null;
-  this.resolveStack = [];//异步任务的成功任务 回调集合 - 模拟任务队列
-  this.rejectStack = [];//异步任务的失败任务 回调集合 - 模拟任务队列
-
-  if(!(this instanceof GjfPromise)){
+  this.resolveStack = []; //异步任务的成功任务 回调集合 - 模拟任务队列
+  this.rejectStack = []; //异步任务的失败任务 回调集合 - 模拟任务队列
+  if (!(this instanceof GjfPromise)) {
     //原生promise必须用new调用，否则抛出错误
     throw new TypeError('undefined is not a promise');
   }
-  if(typeof executor !== 'function'){
+  if (typeof executor !== 'function') {
     //防止Promise调用时不传参/参数不是一个函数
     throw new TypeError('GjfPromise resolver undefined is not a function');
   }
   /* executor传递两个参数进入promise的参数函数中 */
-  function resolve(value){//外边res调用的时候，resolve或reject也会接收参数，并传给下一个then使用
-    if(self.status === 'pending'){
+  function resolve(value) { //外边res调用的时候，resolve或reject也会接收参数，并传给下一个then使用
+    if (self.status === 'pending') {
       //状态转换
       self.status = 'fulfilled';
-      self.resolveValue = value;//储存回调参数，给下一个then用
+      self.resolveValue = value; //储存回调参数，给下一个then用
       // 如果是pending -> fulfilled时stack里有值，说明存储过异步任务，进行触发：
-      self.resolveStack.forEach(function(ele){
-        ele();//逐个触发成功的异步任务
+      self.resolveStack.forEach(function (ele) {
+        ele(); //逐个触发成功的异步任务
       });
-     
     }
   }
-  function reject(reason){
-    if(self.status === 'pending'){
+
+  function reject(reason) {
+    if (self.status === 'pending') {
       //状态转换
       self.status = 'rejected';
       self.rejectReason = reason;
       // 如果是pending -> rejected时stack里有值，说明存储过异步任务，进行触发：
-      self.rejectStack.forEach(function(ele){
-        ele();//逐个触发失败的异步任务
+      self.rejectStack.forEach(function (ele) {
+        ele(); //逐个触发失败的异步任务
       });
     }
   }
-  try{
+  try {
     // promise调用后，参数函数executor里边抛出错误需要捕获并传给下一个then的错误回调。
-    executor(resolve,reject);
-  }catch(err){
+    executor(resolve, reject);
+  } catch (err) {
     // 接住错误并触发状态改变、存储错误信息。
     // 遇到错误时流程走到then的错误回调，相当于触发rej，错误回调的参数是错误信息
     reject(err);
@@ -495,27 +493,72 @@ function GjfPromise(executor) {
 // GjfPromise 原型
 GjfPromise.prototype = {
   // then
-  then(onFunfilled,onRejected){//这俩名字是Promise规范命名
-    var _this = this;
-    // 检测不同的状态，触发不同的回调
-    if(this.status === 'fulfilled'){
-      // 触发成功回调
-      onFunfilled(this.resolveValue);
+  then(onFunfilled, onRejected) { //这俩名字是Promise规范命名
+    //检查then的传参是否规范，是够是两个函数？或者只传了一个函数，或者reso传的是null？是否是空then(即reso或reje不传参时)等情况。
+    if (typeof(onFunfilled) !== 'function') {
+      onFunfilled = function (val) {
+        // 透过去的本质，不是真正的忽视，而是你转交给我的东西，我原封不动的传到下一个中去。
+        return val;
+      }
     }
-    if(this.status === 'rejected'){
-      // 触发失败回调
-      onRejected(this.rejectReason);
+    if (typeof(onRejected) !== 'function') {
+      onRejected = function (err) {
+        // 透过去的本质，不是真正的忽视，而是你转交给我的东西，我原封不动的传到下一个中去。
+        throw err;
+      }
     }
-    if(this.status === 'pending'){
-      //res还没触发的时候，就已经走了then了。所以在then里判断状态还是pending的话，就说明是异步任务。
-      // 所以模拟两个栈来存放异步回调,等回调完毕触发res/rej的时候再执行之。
-      this.resolveStack.push(function(){
-        onFunfilled(_this.resolveValue);
+    var _this = this,
+      //创建一个新的promise对象，并把之前的代码当做同步代码穿进去
+      newPromise = new GjfPromise(function (reso, reje) {
+        // 检测不同的状态，触发不同的回调
+        if (_this.status === 'fulfilled') {
+          // 触发成功回调
+          setTimeout(function () { //模拟then的微任务
+            try {
+              var lashResolveValue = onFunfilled(_this.resolveValue); // 记录上一个then的返回值
+              reso(lashResolveValue); //第一个then的resove触发，拿到返回值立即调用下一个then的resolve，并传参上一个then的返回值
+            } catch (e) {
+              reje(e); //如果捕获到错误，直接出发下一个then的失败回调
+            }
+          }, 0);
+        }
+        if (_this.status === 'rejected') {
+          // 触发失败回调
+          setTimeout(function () {
+            try {
+              var lashRejectValue = onRejected(_this.rejectReason);
+              reje(lashRejectValue);
+            } catch (e) {
+              reje(e);
+            }
+          }, 0);
+        }
+        if (_this.status === 'pending') {
+          //res还没触发的时候，就已经走了then了。所以在then里判断状态还是pending的话，就说明是异步任务。所以模拟两个栈来存放异步回调,等回调完毕触发res/rej的时候再执行之。
+          _this.resolveStack.push(function () {
+            setTimeout(function () {
+              try {
+                var lashResolveValue = onFunfilled(_this.resolveValue);
+                reso(lashResolveValue);
+              } catch (e) {
+                reje(e);
+              }
+            }, 0);
+          });
+          _this.rejectStack.push(function () {
+            setTimeout(function () {
+              try {
+                var lashRejectValue = onRejected(_this.rejectReason);
+                reje(lashRejectValue);
+              } catch (e) {
+                reje(e);
+              }
+            }, 0);
+          });
+        }
+
       });
-      this.rejectStack.push(function(){
-        onRejected(_this.rejectReason);
-      });
-    }
+    // 返回一个新的promise对象，方便链式调用
+    return newPromise;
   }
 }
-
