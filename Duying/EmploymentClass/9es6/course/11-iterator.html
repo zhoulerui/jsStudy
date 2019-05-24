@@ -1,18 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>iterator</title>
 </head>
+
 <body>
   <h4>iterator迭代接口</h4>
   <p>
 
   </p>
   <script>
-    
+    const {
+      log
+    } = console;
+    // 部署iterator
+    let noIteObj = {
+      a: '1a',
+      b: '2b'
+    }
+    // let arr = [...noIteObj];
+    // for (let item of noIteObj) {
+    //   log(item)
+    // }
+    // log(arr);
+
+    // 给obj加迭代函数
+    let iteObj = {
+      0: '1a',
+      1: '2b',
+      2: '3c',
+      3: '4d',
+      length: 4,
+      [Symbol.iterator]() {
+        let curIndex = 0;
+        let next = () => {
+          return {
+            value: this[curIndex++],
+            done: curIndex > this.length // 为true停止调用，为false就会一直进行下一个next调用
+            /* // 老师的写法，改进，将前置自增改为后置自增，否则会少迭代最后一个
+            value: this[curIndex],
+            done: this.length == curIndex++ */
+          }
+        }
+        return {
+          next
+        }
+      }
+    }
+    let arr = [...iteObj];
+    log(arr);
+    for (let iterator of iteObj) {
+      log(iterator);
+    }
   </script>
 </body>
+
 </html>

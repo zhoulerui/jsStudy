@@ -75,55 +75,63 @@
       reg1 = /\d+/g,
       date1 = new Date(),
       set = new Set('我是Set结构'),
-      map = new Map([['name','我是Map结构']]),
+      map = new Map([
+        ['name', '我是Map结构']
+      ]),
       fn = function fn1() {},
       err1 = new Error('我是错误文案');
-    Object.prototype.toString = function () {
-      return "哈哈哈Object"
+
+    function changePrototype() {
+
+
+      Object.prototype.toString = function () {
+        return "哈哈哈Object"
+      }
+      Function.prototype.toString = function () {
+        return "哈哈哈Function"
+      }
+      Array.prototype.toString = function () {
+        return "哈哈哈Array"
+      }
+      Number.prototype.toString = function () {
+        return "哈哈哈Number"
+      }
+      String.prototype.toString = function () {
+        return "哈哈哈String"
+      }
+      Boolean.prototype.toString = function () {
+        return "哈哈哈String"
+      }
+      Map.prototype.toString = function () {
+        return "哈哈哈Map"
+      }
+      Set.prototype.toString = function () {
+        return "哈哈哈Set"
+      }
+      Date.prototype.toString = function () {
+        return "哈哈哈Date"
+      }
+      RegExp.prototype.toString = function () {
+        return "哈哈哈RegExp"
+      }
+      Error.prototype.toString = function () {
+        return "哈哈哈Error"
+      }
     }
-    Function.prototype.toString = function () {
-      return "哈哈哈Function"
-    }
-    Array.prototype.toString = function () {
-      return "哈哈哈Array"
-    }
-    Number.prototype.toString = function () {
-      return "哈哈哈Number"
-    }
-    String.prototype.toString = function () {
-      return "哈哈哈String"
-    }
-    Boolean.prototype.toString = function () {
-      return "哈哈哈String"
-    }
-    Map.prototype.toString = function () {
-      return "哈哈哈Map"
-    }
-    Set.prototype.toString = function () {
-      return "哈哈哈Set"
-    }
-    Date.prototype.toString = function () {
-      return "哈哈哈Date"
-    }
-    RegExp.prototype.toString = function () {
-      return "哈哈哈RegExp"
-    }
-    Error.prototype.toString = function () {
-      return "哈哈哈Error"
-    }
+    // changePrototype()
     let sm1 = Symbol(obj1),
-        sm2 = Symbol(arr1),
-        sm3 = Symbol(num),
-        sm4 = Symbol(str),
-        sm5 = Symbol(fn),
-        sm6 = Symbol(bool),
-        sm7 = Symbol(map),
-        sm8 = Symbol(set),
-        sm9 = Symbol(date1),
-        sm10 = Symbol(reg1),
-        sm11 = Symbol(err1),
-        sm12 = Symbol(null),
-        sm13 = Symbol(undefined);
+      sm2 = Symbol(arr1),
+      sm3 = Symbol(num),
+      sm4 = Symbol(str),
+      sm5 = Symbol(fn),
+      sm6 = Symbol(bool),
+      sm7 = Symbol(map),
+      sm8 = Symbol(set),
+      sm9 = Symbol(date1),
+      sm10 = Symbol(reg1),
+      sm11 = Symbol(err1),
+      sm12 = Symbol(null),
+      sm13 = Symbol(undefined);
     log(sm1);
     log(sm2);
     log(sm3);
@@ -137,6 +145,36 @@
     log(sm11);
     log(sm12);
     log(sm13);
+
+    // es6中的对象
+    let objKey = 'name',
+      i = 2;
+    let es6Obj = {
+      name: '第一种形式',
+      [objKey + i]: '第二种形式',
+      fun() {
+
+      }
+      // Symbol('a'): '第三种形式'
+    };
+    es6Obj[Symbol('IamObj')] = '第三种形式';
+    log(es6Obj);
+
+
+    // Symbol做对象的健名，防止属性重复而被覆盖
+    let key1 = Symbol('key');
+    let key2 = Symbol('key');
+    let keyNum = 0;
+    let obj2 = {
+      [key1]: '第一个以Symbol(key)为键名的属性',
+      [key2]: '第二个以Symbol(key)为键名的属性'
+    }
+    log(obj2);
+
+    // Symbol身上的静态属性iterator
+    log(Symbol.iterator)
+    log(Symbol('Symbol.iterator'))
+
     // for( let item of obj1){
     //   log(obj1[item]);
     // }
