@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-05-22 14:07:55 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-26 16:12:01
+ * @Last Modified time: 2019-05-26 23:46:31
  */
 let fs = require('fs'); // node中读取文件的一个对象，对象上有各种读取文件的方法
 
