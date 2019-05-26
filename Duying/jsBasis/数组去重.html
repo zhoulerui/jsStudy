@@ -105,8 +105,8 @@
     /*
      * @Author: @Guojufeng 
      * @Date: 2018-11-05 09:35:14 
- * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-19 13:46:33
+     * @Last Modified by: @Guojufeng
+     * @Last Modified time: 2019-05-19 13:46:33
      * 数组去重
      */
     // 思路 准备一个对象，循环数组时，将数组的值当做对象的键，且对应值为true/1皆可，然后每次拿数组的下一个值都去判断一下对象中是否有这个值，没有再push到新数组中去，最后返回新数组。
@@ -215,11 +215,34 @@
       return rst;
     }
     console.log('map试水失败', uni10519Map(arr20190517));
+
     function uni10519Set(arr) {
       // 用Set实现去重  
       return [...new Set(arr)];
     }
-    console.log('set试水失败',uni10519Set(arr20190517));
+    console.log('set试水失败', uni10519Set(arr20190517));
+
+    Array.prototype.uniq20190525 = function () {
+      var obj = {},
+        rst = [],
+        tempEl = '',
+        objNum = 0;
+      this.forEach(el => {
+        if (Object.prototype.toString.call(el) === '[object Object]') {
+          tempEl = JSON.stringify(el) + objNum++;
+          console.log(tempEl)
+        } else {
+          tempEl = el;
+        }
+        if (!obj[tempEl]) {
+          obj[tempEl] = true;
+          rst.push(el);
+        }
+      });
+      return rst;
+    }
+    let arr20190525 = [false, true, undefined, null, NaN, 0, 1, {}, {}, 'a', 'a', NaN];
+    console.log('封装去重',arr20190525.uniq20190525())
   </script>
 </body>
 

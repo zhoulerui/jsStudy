@@ -7,7 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>may</title>
   <style>
-    
+    body{
+      font: bold 14px 黑体;
+    }
 
     #markEare {
       margin-top: 1200px;
@@ -74,7 +76,28 @@
     <span>2</span>
     <span>1</span>
   </div>
+  <div class="form">
+    <label for="请输入密码">
+      <input type="password" placeholder="请输入密码" class="onePass">
+
+    </label>
+    <br>
+    <label for="请确认密码">
+      <input type="password" name="" placeholder="请确认密码" id="" class="twoPass">
+    </label>
+    <button class="passBtn">确认</button>
+    <span class="rest">结果：</span>
+  </div>
+  
   <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
+  <script>
+    $('.onePass').on('input',function(){
+      console.log(this.value);
+    });
+    $('.passBtn').on('click',()=>{
+      $('.rest').text(`结果：${$('.onePass').val() === $('.twoPass').val()}`)
+    })
+  </script>
   <script>
     opacity.style.opacity = '.83'; //opacity的属性值填字符串
     // var promptVal = parseInt(window.prompt('tian'))//Window大写就报错了，Window当变量用了，js严格区分大小写的。
