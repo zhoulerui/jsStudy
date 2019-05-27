@@ -295,7 +295,7 @@
         }).catch((data) => {
           log('cccc', data);
           return '哈哈222'
-        },(err) => {
+        }, (err) => {
           log('catch-', err);
         }).then((data) => {
           log('log-data4', data);
@@ -303,7 +303,7 @@
           log('catch-', err);
         });
     }
-    text3();
+    // text3();
     // test31();
     function test31() {
       var pr2 = new Promise((res, rej) => {
@@ -340,7 +340,7 @@
         }).catch((data) => {
           log('cccc', data);
           return '哈哈222'
-        },(err) => {
+        }, (err) => {
           log('catch-', err);
           return '哈哈'
         }).then((data) => {
@@ -355,42 +355,96 @@
   </h3>
   <script>
     function text4() {
+      function Person (){
+        if(!(this instanceof Person)){
+          throw new TypeError("Class constructor Person cannot be invoked without 'new'");
+        }
 
+      }
+      let person = new Person();
+      log(person)
     }
+    text4();
+    function text41(){
+      class Person {
+        // 私有属性-es7写法
+        hobby = [1,2];
+        // 静态属性（Person.lashName)
+        static lastName(){
+          return '郭';
+        }
+        // 私有属性
+        constructor (name,age){
+          this.name = name;
+          this.age = age;
+          this.say = function(){
+            log(this.name)
+          }
+        }
+        // 公有方法 - prototype的方法
+        eat(){
+          log(this.name + ' - i can eating');
+        }
+      }
+      class Man extends Person{
+        constructor(name,age,sex){
+          super(name,age);//没有super报错
+          this.sex = sex;
+        }
+        sleep(){
+          log(this.name + ' - i can sleeping');
+        }
+      }
+      let person = new Person('gjf',19);
+      log(person)
+      log(Person.lastName());
+      Person.lastName = function (){
+        return '修改';
+      }
+      log(Person.lastName());
+      let man = new Man('胡杨',21);
+      person.eat();
+      man.eat();
+      man.sleep();
+    }
+    text41();
   </script>
   <h3>
     6.Let obj = {name: ‘duyi’，age: 10}，请给该对象部署迭代接口，使其可以被for of遍历。
   </h3>
   <script>
-    let obj = {
-      name: "xing.org1^",
-      age: 10,
-      sex: 'female'
-    };
-    let objLength = Object.keys(obj);
-    console.log(objLength)
+    function text6() {
+      let obj = {
+        name: "xing.org1^",
+        age: 10,
+        sex: 'female'
+      };
+      let objLength = Object.keys(obj);
+      console.log(objLength)
 
-    function text6(obj) {
-      obj[Symbol.iterator] = function () {
-        let arr = Object.keys(obj), // 利用keys方法，获取obj身上可迭代属性的集合，得到一个数组，有名字串和长度可供后期使用
-          len = 0,
-          element = null;
-        let next = () => {
+      function objIterator(obj) {
+        obj[Symbol.iterator] = function () {
+          let arr = Object.keys(obj), // 利用keys方法，获取obj身上可迭代属性的集合，得到一个数组，有名字串和长度可供后期使用
+            len = 0,
+            element = null;
+          let next = () => {
+            return {
+              value: obj[arr[len]], // 利用arr的字符串集合和下标获取obj的对应属性值。
+              done: len++ === arr.length // 如果先自增，obj的最后一位获取不到
+            }
+          }
           return {
-            value: obj[arr[len]], // 利用arr的字符串集合和下标获取obj的对应属性值。
-            done: len++ === arr.length // 如果先自增，obj的最后一位获取不到
+            next
           }
         }
-        return {
-          next
-        }
+        return obj;
       }
-      return obj;
+      let canIteObj = objIterator(obj);
+      for (const iterator of canIteObj) {
+        log(iterator);
+      }
     }
-    let canIteObj = text6(obj);
-    for (const iterator of canIteObj) {
-      log(iterator);
-    }
+    // text6();
   </script>
 
 </body>
