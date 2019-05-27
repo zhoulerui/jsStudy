@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-12 21:18:38 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-05-24 01:16:06
+ * @Last Modified time: 2019-05-27 21:20:57
  * 原型方法仿写
  * 包括：Function 、Array 、 Map 、 Promise
  */
@@ -625,5 +625,8 @@ GjfPromise.prototype = {
       });
     // 返回一个新的promise对象，方便链式调用
     return newPromise;
+  },
+  catch(onRejected){
+    return this.then(null,onRejected);
   }
 }
