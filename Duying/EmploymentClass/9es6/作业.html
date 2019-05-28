@@ -355,59 +355,189 @@
   </h3>
   <script>
     function text4() {
-      function Person (){
-        if(!(this instanceof Person)){
+      function _checkIsNew(son, father) {
+        log(son,father)
+        // 检测是否new调用
+        if (!(son instanceof father)) {
           throw new TypeError("Class constructor Person cannot be invoked without 'new'");
         }
-
       }
-      let person = new Person();
-      log(person)
+      function _addCommonFun(target, keysArr) {
+        // object.defineProperty代理添加对象属性
+        keysArr.forEach((ele, i) => {
+          Object.defineProperty(target, ele.key, {
+            value: ele.value,
+            enumerable: false, // 原型上的方法是不可枚举的（以前构造函数中的时候能枚举出来，现在class不能了）
+            configurable: true,
+            writable: true
+          })
+        });
+      }
+      function _judgeTarget(target, proto, static){
+        // 判断是添加原型方法还是添加静态方法
+        if(proto){
+          _addCommonFun(target.prototype, proto);
+        }
+        if(static){
+          _addCommonFun(target, static);
+        }
+      }
+      function _inherit(Father,Son){
+        // 继承
+        if (typeof Son !== "function" && Son !== null) {
+          throw new TypeError("Super expression must either be null or a function");
+        }
+        Son.prototype.__proto__ = Father.prototype;
+      }
+      let Person = function () {
+        function Person(name, age) {
+          _checkIsNew(this, Person);
+          // constructor内部代码
+          this.name = name;
+          this.age = age;
+          this.say = function () {
+            log(this.name);
+          }
+        }
+        // 添加共有方法 - 代码拦截
+        _judgeTarget(Person, [{
+          key: 'eat',
+          value: function () {
+            log(this.name + ' - i can eating');
+            return 'eat function'
+          }
+        }, {
+          key: 'eat2',
+          value: function () {
+            log(this.name + ' - i can eating2');
+            return 'eat2 function'
+          },
+        }]);
+        // 添加静态方法 - 代码拦截
+        _judgeTarget(Person, null, [{
+          key: 'lastName',
+          value: function () {
+            log(this.name + ' - i am lastName');
+            return 'lastName function'
+          }
+        }, {
+          key: 'lastName2',
+          value: function () {
+            log(this.name + ' - i am lastName2');
+            return 'lastName2 function'
+          },
+        }]);
+        return Person;
+      }();
+      let person = new Person('xingorg1', 18);
+      log(person);
+      for (var item in person) {
+        console.log(item)
+      }
+      Person.lastName();
+      // 继承写法
+      let Man = function(_Father){
+        // 原型继承
+        // Man.prototype.__proto__ = _Father.prototype;
+        _inherit(_Father,Man);
+        
+        // 静态属性
+        _judgeTarget(Man, null, [{
+          key: 'manName',
+          value: function() {
+            log('my name is'+ this.name);
+            return '郭';
+          }
+        }]);
+        function Man(name , age, sex){
+          var _that = this;
+          // 防止不new就调用
+          _checkIsNew(this, Man);
+          // 私有属性继承（super）
+          // 原理是_that = _Father.call(this);
+          // 先把this对象改变一下，改成new Person，然后再添加新的东西
+          _that = _Father.call(this,name, age);
+          log('继承后的this',_that);
+
+          // 私有属性
+          this.sex = sex;
+        }
+        // 公有属性和方法
+        _judgeTarget(Man, [{
+          key: 'sleep',
+          value: function() {
+            log(this.name + ' - i can sleeping');
+            return 'sleep function'
+          }
+        }]);
+
+        return Man;
+      }(Person);
+      let man = new Man('小石头', 22, 'male');
+      log('man-', man);
+      Man.manName();// 静态方法使用
+      // 公有属性和方法使用
+      man.sleep();
+      log(man.sex);
+      // 原型方法继承
+      man.eat();
+      // 私有方法继承（super的功能，Person.call(this)）
+      log(man.name)
     }
     text4();
-    function text41(){
+    // text41();
+
+    function text41() {
       class Person {
         // 私有属性-es7写法
-        hobby = [1,2];
+        // hobby = [1, 2];
         // 静态属性（Person.lashName)
-        static lastName(){
+        static lastName() {
           return '郭';
         }
         // 私有属性
-        constructor (name,age){
+        constructor(name, age) {
           this.name = name;
           this.age = age;
-          this.say = function(){
-            log(this.name)
+          this.say = function () {
+            log(this.name);
+            return 'say'
           }
         }
         // 公有方法 - prototype的方法
-        eat(){
+        eat() {
           log(this.name + ' - i can eating');
+          return 'eat function'
         }
       }
-      class Man extends Person{
-        constructor(name,age,sex){
-          super(name,age);//没有super报错
+      class Man extends Person {
+        constructor(name, age, sex) {
+          super(name, age); //没有super报错
           this.sex = sex;
         }
-        sleep(){
+        sleep() {
           log(this.name + ' - i can sleeping');
+          return 'sleep function'
         }
       }
-      let person = new Person('gjf',19);
+      let person = new Person('gjf', 19);
       log(person)
       log(Person.lastName());
-      Person.lastName = function (){
+      Person.lastName = function () {
         return '修改';
       }
       log(Person.lastName());
-      let man = new Man('胡杨',21);
+      let man = new Man('胡杨', 21);
       person.eat();
       man.eat();
       man.sleep();
+      for (const key in man) {
+        // if (man.hasOwnProperty(key)) {
+        log(man[key]);
+
+        // }
+      }
     }
-    text41();
   </script>
   <h3>
     6.Let obj = {name: ‘duyi’，age: 10}，请给该对象部署迭代接口，使其可以被for of遍历。

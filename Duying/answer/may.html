@@ -88,7 +88,7 @@
     <button class="passBtn">确认</button>
     <span class="rest">结果：</span>
   </div>
-  
+  <button class="btnsss">123123</button>
   <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
   <script>
     $('.onePass').on('input',function(){
@@ -97,6 +97,20 @@
     $('.passBtn').on('click',()=>{
       $('.rest').text(`结果：${$('.onePass').val() === $('.twoPass').val()}`)
     })
+    var btnsss = document.querySelector('.passBtn');
+    btnsss.onkeydown = function(e){
+      console.log(e.keyCode)
+    }
+
+    var aa = 10;
+    var fooa = {
+      aa: 20,
+      bar: function(){
+        var aa = 30;
+        console.log(this.aa);
+      }
+    }
+    console.log(fooa.bar());
   </script>
   <script>
     opacity.style.opacity = '.83'; //opacity的属性值填字符串
@@ -315,6 +329,8 @@
     console.log('函數表达式的名字',typeof g);//typeof 一个不存在的变量，得到undefined
     console.log('函數表达式的名字 - 函数调用',typeof g());//typeof 一个不存在的变量，得到undefined
     
+    // keycode
+
   </script>
 </body>
 
