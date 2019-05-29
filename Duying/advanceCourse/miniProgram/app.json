@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/shortcut/shortcut"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f0f",
+    "navigationBarTitleText": "胡杨加油",
+    "navigationBarTextStyle": "white"
+  }
+}

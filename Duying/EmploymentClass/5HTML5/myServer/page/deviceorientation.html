@@ -20,11 +20,11 @@
 
     function myLog(e){
       document.getElementById('txt').innerHTML = `
-        alpha: ${e.alpha.toFixed(5)}°
+        alpha: ${e.alpha && e.alpha.toFixed(5)}°
         <br/>
-        beta: ${e.beta.toFixed(5)}°
+        beta: ${e.beta && e.beta.toFixed(5)}°
         <br/>
-        gamma: ${e.gamma.toFixed(5)}°
+        gamma: ${e.gamma && e.gamma.toFixed(5)}°
       `;
     }
   </script>
